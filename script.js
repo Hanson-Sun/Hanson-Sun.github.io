@@ -25,7 +25,7 @@ help = `
 +-------------+-----------------------------------------------+
 | projects    | a showcase of some of my programming projects |
 +-------------+-----------------------------------------------+
-| awards      | my acheivements recognized by others          |
+| awards      | my achievements recognized by others          |
 +-------------+-----------------------------------------------+
 | education   | a summary of my education journey             |
 +-------------+-----------------------------------------------+
@@ -51,7 +51,7 @@ Hobbies:
 		<li>Playing the saxophone</li>
 		<li>Arduino Robotics</li>
 		<li>Sleep enthusiast</li>
-		<li>Amature food critic (with very low standards)</li>
+		<li>Amateur food critic (with very low standards)</li>
 	</ul>
 `
 skills = `
@@ -145,9 +145,9 @@ awards = `
 		<li>1st place in district for 2021 Waterloo's Sir Isaac Newton Physics Exam</li>
 		<li>82nd place in Canada for 2021 Waterloo's Avogadro Contest</li>
 		<li>9th place during 2021 UBC Physics Olympics, placing 3rd for the Speed of Sound Event (the event I was mainly responsible for)</li>
-		<li>Provincal placement for 2019 Math Challengers Competetion</li>
-		<li>3rd place during the 2019 Kwantlen Science Competetion</li>
-		<li>4th place during the 2018 Kwantlen Science Competetion</li>
+		<li>Provincial placement for 2019 Math Challengers Competition</li>
+		<li>3rd place during the 2019 Kwantlen Science Competition</li>
+		<li>4th place during the 2018 Kwantlen Science Competition</li>
 		<li>Top 25% for COMC, CSMC, and Euclid Math contests</li>
 		<li>Principal's Award throughout highschool</li>
 		<li>Mathematics HL 11 Award, Chemistry SL 11 Award, Physics 11 Award, Web Development 9/10 Award, English 10 Award. </li>
@@ -224,164 +224,163 @@ repl.it: <a target = "_blank" href = "https://replit.com/@HansonSun">https://rep
 `
 
 mobile = `
-Oof, should check out this webiste on a computer sometime.
+Oof, should check out this website on a computer sometime.
 `
 
 function pb(start, max, delay, flavtext, first = true) {
-	return new Promise((resolve) => {
-		let empty = "·";
-		let done = "#";
-		if (first) {
-			term.echo(flavtext + "[" + done.repeat(start) + empty.repeat(max - start) + "] " + (start / max * 100).toFixed(1) + "%")
-			first = false;
-		}
-		term.pause();
-		setTimeout(function () {
-			start++;
+    return new Promise((resolve) => {
+        let empty = "·";
+        let done = "#";
+        if (first) {
+            term.echo(flavtext + "[" + done.repeat(start) + empty.repeat(max - start) + "] " + (start / max * 100).toFixed(1) + "%")
+            first = false;
+        }
+        term.pause();
+        setTimeout(function() {
+            start++;
 
-			bar = flavtext + "[" + done.repeat(start) + empty.repeat(max - start) + "] " + (start / max * 100).toFixed(1) + "%";
-			term.update(term.last_index(), bar).resume();
-			if (start >= max) {
-				return resolve(true);
+            bar = flavtext + "[" + done.repeat(start) + empty.repeat(max - start) + "] " + (start / max * 100).toFixed(1) + "%";
+            term.update(term.last_index(), bar).resume();
+            if (start >= max) {
+                return resolve(true);
 
-			} else {
-				return resolve(pb(start, max, delay, flavtext, false));
-			}
-		}, delay);
-	});
+            } else {
+                return resolve(pb(start, max, delay, flavtext, false));
+            }
+        }, delay);
+    });
 
 }
 
 function fetchURL(url) {
-	return new Promise((resolve) => {
-		let response = fetch(url, { credentials: 'omit' }).then(res => {
-			if (!res.ok) {
-				throw new Error('Network response was not OK');
-			}
-			return res.json();
-		}).then(data => {
-			return resolve(data.joke)
-		});
-	})
+    return new Promise((resolve) => {
+        let response = fetch(url, { credentials: 'omit' }).then(res => {
+            if (!res.ok) {
+                throw new Error('Network response was not OK');
+            }
+            return res.json();
+        }).then(data => {
+            return resolve(data.joke)
+        });
+    })
 }
 
 
 
 
 var term = $('#content').terminal({
-	//this.echo("<a href = 'youtube.com'>I don't want to use a terminal</a>", {raw:true})
+    //this.echo("<a href = 'youtube.com'>I don't want to use a terminal</a>", {raw:true})
 
-	hello: function () {
-		this.echo('Hello, welcome to this terminal. Have fun looking around!');
-	},
-	help: function () {
-		this.echo(help, { raw: false });
-	},
-	about: function () {
-		this.echo(about, { raw: true });
-	},
-	skills: function () {
-		this.echo(skills, { raw: true });
-	},
+    hello: function() {
+        this.echo('Hello, welcome to this terminal. Have fun looking around!');
+    },
+    help: function() {
+        this.echo(help, { raw: false });
+    },
+    about: function() {
+        this.echo(about, { raw: true });
+    },
+    skills: function() {
+        this.echo(skills, { raw: true });
+    },
 
-	projects: async function () {
-		// time = 42;
-		// size = 20;
+    projects: async function() {
+        // time = 42;
+        // size = 20;
 
-		// pb(0, size, time, "Loading Projects    ", projects).then(function () {
-		// 	term.update(-1, projects, { raw: true });
-		// })
-		this.echo(projects, { raw: true });
+        // pb(0, size, time, "Loading Projects    ", projects).then(function () {
+        // 	term.update(-1, projects, { raw: true });
+        // })
+        this.echo(projects, { raw: true });
 
-	},
+    },
 
-	progress: function () {
-		pb(0, 20, 50, "Loading Data    ");
-	},
-	awards: function () {
-		this.echo(awards, { raw: true });
-	},
-	education: function () {
-		this.echo(education, { raw: true });
-	},
-	experience: function () {
-		this.echo(experience, { raw: true });
-	},
-	contact: function () {
-		this.echo(contact, {raw: true});
-	},
-	mobile: function () {
+    progress: function() {
+        pb(0, 20, 50, "Loading Data    ");
+    },
+    awards: function() {
+        this.echo(awards, { raw: true });
+    },
+    education: function() {
+        this.echo(education, { raw: true });
+    },
+    experience: function() {
+        this.echo(experience, { raw: true });
+    },
+    contact: function() {
+        this.echo(contact, { raw: true });
+    },
+    mobile: function() {
 
-	},
-	all: function () {
-		this.echo("<h1>About</h1><br>", { raw: true });
-		this.echo(about, { raw: true })
-		this.echo("<h1>Skills</h1><br>", { raw: true });
-		this.echo(skills, { raw: true });
-		this.echo("<h1>Experience</h1>", { raw: true });
-		this.echo(experience, { raw: true });
-		this.echo("<h1>Awards</h1>", { raw: true });
-		this.echo(awards, { raw: true });
-		this.echo("<h1>Projects</h1><br>", { raw: true });
-		this.echo(projects, { raw: true });
-		this.echo("<h1>Education</h1>", { raw: true });
-		this.echo(education, { raw: true });
-		this.echo("<h1>Contact</h1>", { raw: true });
-		this.echo(contact, {raw: true});
+    },
+    all: function() {
+        this.echo("<h1>About</h1><br>", { raw: true });
+        this.echo(about, { raw: true })
+        this.echo("<h1>Skills</h1><br>", { raw: true });
+        this.echo(skills, { raw: true });
+        this.echo("<h1>Experience</h1>", { raw: true });
+        this.echo(experience, { raw: true });
+        this.echo("<h1>Awards</h1>", { raw: true });
+        this.echo(awards, { raw: true });
+        this.echo("<h1>Projects</h1><br>", { raw: true });
+        this.echo(projects, { raw: true });
+        this.echo("<h1>Education</h1>", { raw: true });
+        this.echo(education, { raw: true });
+        this.echo("<h1>Contact</h1>", { raw: true });
+        this.echo(contact, { raw: true });
 
-	},
-	download_cv: function () {
-		this.echo("This feature will arrive in a future update.")
-	},
-	joke: async function () {
-		if(firstJoke){
-			this.echo("These jokes are from a javscript joke API and I am NOT responsible for any questionable content that may appear. \n")
-			firstJoke = false;
-		}
-		this.pause();
-		const url = "https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit";
-		let response = await fetch(url).then(res => {
-			return res.json();
-		}).then(data => {
-			if (data.joke) { return data.joke }
-			else {
-				return data.setup + "\n" + data.delivery
-			}
+    },
+    download_cv: function() {
+        this.echo("This feature will arrive in a future update.")
+    },
+    joke: async function() {
+        if (firstJoke) {
+            this.echo("These jokes are from a javscript joke API and I am NOT responsible for any questionable content that may appear. \n")
+            firstJoke = false;
+        }
+        this.pause();
+        const url = "https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit";
+        let response = await fetch(url).then(res => {
+            return res.json();
+        }).then(data => {
+            if (data.joke) { return data.joke } else {
+                return data.setup + "\n" + data.delivery
+            }
 
 
-		});
-		console.log(response)
-		this.echo(response).resume();
-		// response = fetchURL("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit");
-		// console.log(response)
-		// this.echo(response);
-	},
-	bored: async function () {
-		this.pause();
-		const url = "https://www.boredapi.com/api/activity";
-		let response = await fetch(url).then(res => {
-			return res.json();
-		}).then(data => {
-			if (data.activity) { return data.activity }
-	});
-		console.log(response)
-		this.echo(response).resume();
+        });
+        console.log(response)
+        this.echo(response).resume();
+        // response = fetchURL("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit");
+        // console.log(response)
+        // this.echo(response);
+    },
+    bored: async function() {
+        this.pause();
+        const url = "https://www.boredapi.com/api/activity";
+        let response = await fetch(url).then(res => {
+            return res.json();
+        }).then(data => {
+            if (data.activity) { return data.activity }
+        });
+        console.log(response)
+        this.echo(response).resume();
 
-		// response = fetchURL("https://www.boredapi.com/api/activity");
+        // response = fetchURL("https://www.boredapi.com/api/activity");
 
-		// console.log(response)
-		// this.echo(response);
-	},
-	bruh: function () {
-		this.echo("Bruh, you really gonna think bruh is a command");
-	}
+        // console.log(response)
+        // this.echo(response);
+    },
+    bruh: function() {
+        this.echo("Bruh, you really gonna think bruh is a command");
+    }
 
 }, {
-		greetings: "",
+    greetings: "",
 
-	});
+});
 
 
-pb(0, 25, 45, "Loading Data    ", projects).then(function () {
-	term.update(-1, greet);
+pb(0, 25, 45, "Loading Data    ", projects).then(function() {
+    term.update(-1, greet);
 });
