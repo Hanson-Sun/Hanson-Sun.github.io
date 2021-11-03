@@ -1,4 +1,4 @@
-
+var firstJoke = true;
 greet = `
   _  _                          ___           
  | || |__ _ _ _  ___ ___ _ _   \/ __|_  _ _ _  
@@ -121,6 +121,7 @@ General
 	</tr>
 
 	</table>
+<br>
 `
 education = `
 	<ul class = "awards">
@@ -131,10 +132,11 @@ education = `
 `
 experience = `
 	<ul class = "awards">
-		<li>Co-founder of a non-profit math tutoring organization, Math Connect.</li>
-		<li>Co-founder of the RHS Programming Club</li>
-		<li>Executive memember of the RHS Math Club</li>
-		<li>Member of the RHS Science Team</li>
+		<li>Co-founder of a non-profit math tutoring organization, Math Connect. (2020 - present)</li>
+		<li>Co-founder of the RHS Programming Club (2020 - present)</li>
+		<li>Co-president of the RHS Math Club (2019 - present)</li>
+		<li>Member of the RHS Science Team (2018 - present)</li>
+		<li>Executive of Homework Help Club (2018 - 2019)</li>
 	</ul>
 `
 
@@ -142,10 +144,11 @@ awards = `
 	<ul class = "awards">
 		<li>1st place in district for 2021 Waterloo's Sir Isaac Newton Physics Exam</li>
 		<li>82nd place in Canada for 2021 Waterloo's Avogadro Contest</li>
-		<li>9th place during 2021 UBC Physics Olympics, placing 3rd for the Speed of Sound Event (the event I was mainly responible for)</li>
+		<li>9th place during 2021 UBC Physics Olympics, placing 3rd for the Speed of Sound Event (the event I was mainly responsible for)</li>
 		<li>Provincal placement for 2019 Math Challengers Competetion</li>
 		<li>3rd place during the 2019 Kwantlen Science Competetion</li>
 		<li>4th place during the 2018 Kwantlen Science Competetion</li>
+		<li>Top 25% for COMC, CSMC, and Euclid Math contests</li>
 		<li>Principal's Award throughout highschool</li>
 		<li>Mathematics HL 11 Award, Chemistry SL 11 Award, Physics 11 Award, Web Development 9/10 Award, English 10 Award. </li>
 	</ul>
@@ -157,10 +160,10 @@ A list of notable cool things I've made, some for fun, some a bit less fun
 <br><br>
 <table>
 	<tr>
-		Formal Analysis of Constrained Dynamic Systems with mathematics and programming
+		Formal Analysis of Constrained Dynamic Systems with Mathematics and Programming
 		<ul>
 			<li>A formal mathematics paper written for the IB Program that analyzes constrained systems. </li>
-			<li><a target=”_blank” href = "HansonS_Math_EE.pdf">PDF Link</a></li>
+			<li><a target=”_blank” href = "HansonS_Math_EE.pdf">PDF Link</a> (Will be updated in the future)</li>
 			<li><a target=”_blank” href = "https://hanson-sun.github.io/Math-EE/">Live Demo</a></li>
 		</ul>
 	</tr>
@@ -173,7 +176,7 @@ A list of notable cool things I've made, some for fun, some a bit less fun
 		</ul>
 	</tr>	
 	<tr>
-		My journey of programmatic physics
+		My Journey of Programmatic Physics
 		<ul>
 			<li>A big passion of mine, also influenced my formal analysis of constrained dynamics</li>
 			<li><a target=”_blank” href = "https://bounce.hansonsun.repl.co">Projectile Motion</a></li>
@@ -205,8 +208,8 @@ A list of notable cool things I've made, some for fun, some a bit less fun
 		Exhibition of Javascript Art 
 		<ul>
 			<li>My first attempt at digital art</li>
-			<li>Javascript Interpretation of Process Compendium by Casey Reas</li>
-			<li>3q</li>
+			<li><a target=”_blank” href = "https://javascript-compendium.hansonsun.repl.co">Javascript Interpretation of Process Compendium by Casey Reas</a></li>
+			<li><a target=”_blank” href = "https://JavascriptArt.hansonsun.repl.co">Compilation of Javascript Art</a></li>
 		</ul>
 	</tr>
 
@@ -215,9 +218,9 @@ A list of notable cool things I've made, some for fun, some a bit less fun
 `
 
 contact = `
-Email: doctorhanson21@gmail.com
-Github: https://github.com/Hanson-Sun
-repl.it: https://replit.com/@HansonSun
+Email: <a target = "_blank" href = "contact.html">hansonsun.school@gmail.com</a><br>
+Github: <a target = "_blank" href = "https://github.com/Hanson-Sun">https://github.com/Hanson-Sun</a><br>
+repl.it: <a target = "_blank" href = "https://replit.com/@HansonSun">https://replit.com/@HansonSun</a>
 `
 
 mobile = `
@@ -249,6 +252,19 @@ function pb(start, max, delay, flavtext, first = true) {
 
 }
 
+function fetchURL(url) {
+	return new Promise((resolve) => {
+		let response = fetch(url, { credentials: 'omit' }).then(res => {
+			if (!res.ok) {
+				throw new Error('Network response was not OK');
+			}
+			return res.json();
+		}).then(data => {
+			return resolve(data.joke)
+		});
+	})
+}
+
 
 
 
@@ -275,7 +291,7 @@ var term = $('#content').terminal({
 		// pb(0, size, time, "Loading Projects    ", projects).then(function () {
 		// 	term.update(-1, projects, { raw: true });
 		// })
-		this.echo( projects, { raw: true });
+		this.echo(projects, { raw: true });
 
 	},
 
@@ -292,36 +308,69 @@ var term = $('#content').terminal({
 		this.echo(experience, { raw: true });
 	},
 	contact: function () {
-		this.echo(contact);
+		this.echo(contact, {raw: true});
 	},
 	mobile: function () {
 
 	},
 	all: function () {
-		this.echo("About");
+		this.echo("<h1>About</h1><br>", { raw: true });
 		this.echo(about, { raw: true })
-		this.echo("Skills");
+		this.echo("<h1>Skills</h1><br>", { raw: true });
 		this.echo(skills, { raw: true });
-		this.echo("Experience");
+		this.echo("<h1>Experience</h1>", { raw: true });
 		this.echo(experience, { raw: true });
-		this.echo("Awards");
+		this.echo("<h1>Awards</h1>", { raw: true });
 		this.echo(awards, { raw: true });
-		this.echo("Projects");
+		this.echo("<h1>Projects</h1><br>", { raw: true });
 		this.echo(projects, { raw: true });
-		this.echo("Eductaion");
+		this.echo("<h1>Education</h1>", { raw: true });
 		this.echo(education, { raw: true });
-		this.echo("Contact");
-		this.echo(contact);
+		this.echo("<h1>Contact</h1>", { raw: true });
+		this.echo(contact, {raw: true});
 
 	},
 	download_cv: function () {
-
+		this.echo("This feature will arrive in a future update.")
 	},
-	joke: function () {
+	joke: async function () {
+		if(firstJoke){
+			this.echo("These jokes are from a javscript joke API and I am NOT responsible for any questionable content that may appear. \n")
+			firstJoke = false;
+		}
 		this.pause();
-		setTimeout(() => {
-			this.echo("look in the mirror").resume();
-		}, 10);
+		const url = "https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit";
+		let response = await fetch(url).then(res => {
+			return res.json();
+		}).then(data => {
+			if (data.joke) { return data.joke }
+			else {
+				return data.setup + "\n" + data.delivery
+			}
+
+
+		});
+		console.log(response)
+		this.echo(response).resume();
+		// response = fetchURL("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit");
+		// console.log(response)
+		// this.echo(response);
+	},
+	bored: async function () {
+		this.pause();
+		const url = "https://www.boredapi.com/api/activity";
+		let response = await fetch(url).then(res => {
+			return res.json();
+		}).then(data => {
+			if (data.activity) { return data.activity }
+	});
+		console.log(response)
+		this.echo(response).resume();
+
+		// response = fetchURL("https://www.boredapi.com/api/activity");
+
+		// console.log(response)
+		// this.echo(response);
 	},
 	bruh: function () {
 		this.echo("Bruh, you really gonna think bruh is a command");
@@ -334,5 +383,5 @@ var term = $('#content').terminal({
 
 
 pb(0, 25, 45, "Loading Data    ", projects).then(function () {
-			term.update(-1, greet);
+	term.update(-1, greet);
 });

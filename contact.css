@@ -1,0 +1,100 @@
+*{
+	--colour:rgba(0, 200, 0, 0.98);
+}
+
+body{
+	color:var(--colour);
+	text-shadow: 0px 0px 3px var(--colour); 
+	font-family: monospace;
+	display:flex;
+	font-size:1rem;
+	flex-direction: column;
+	width:65%;
+	max-width:1000px;
+	min-width:300px;
+	margin: auto;
+
+
+}
+#greetings{
+	text-align: left;
+	margin-bottom: -1rem;
+}
+form{
+
+	max-width: 700px;
+	width:100%;
+	min-width:200px;
+	padding:none;
+	display: flex;
+	flex-direction: column;
+	
+}
+
+.line{
+	padding:none;
+	text-align: left;
+	margin-top:-0.4rem;
+	margin-bottom:-0.4rem;
+}
+form div{
+	margin-bottom:0.2rem;
+}
+label{
+	margin:0.2rem;
+}
+table{
+	width:100%;
+	
+}
+table{
+	padding:none;
+}
+td{
+	text-align: center;
+}
+input, textarea{
+	background-color: var(--background);
+	box-shadow:none;
+	border:none;
+	color: var(--colour);
+	margin-top:0.2rem;
+	margin-bottom:0.2rem;
+	width:99%;
+	padding-top:0.5rem;
+	padding-bottom:0.5rem;
+} 
+
+input:focus, textarea:focus{
+	border:none;
+	outline:none;
+	background-color: var(--background);
+
+}
+#body{
+	height: 15rem;
+	resize: both;
+}
+
+#submit{
+	font-size:2rem;
+	text-align:left;
+	width:200px;
+	text-shadow: 0px 0px 10px var(--colour); 
+	font-weight: 600;
+}
+
+#submit:hover {
+	text-decoration: underline;
+	
+}
+
+@media screen and (min-width: 800px) {
+	body{
+		font-size: 1.3rem;
+	}
+	input, textarea{
+		font-size: 1.1rem;
+	} 
+
+}
