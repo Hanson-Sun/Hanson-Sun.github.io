@@ -71,8 +71,16 @@ Programming
 		<td>▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░</td>
 	</tr>
 	<tr>
+		<td>+ LaTeX</td>
+		<td>▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░░░░</td>
+	</tr>
+	<tr>
 		<td>+ Julia</td>
 		<td>▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░</td>
+	</tr>
+	<tr>
+		<td>+ Git</td>
+		<td>▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░░</td>
 	</tr>
 	<tr>
 		<td>+ C++</td>
