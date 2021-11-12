@@ -227,8 +227,9 @@ A list of notable cool things I've made, some for fun, some a bit less fun
 
 contact = `
 Email: <a target = "_blank" href = "contact.html">hansonsun.school@gmail.com</a><br>
-Github: <a target = "_blank" href = "https://github.com/Hanson-Sun">https://github.com/Hanson-Sun</a><br>
-repl.it: <a target = "_blank" href = "https://replit.com/@HansonSun">https://replit.com/@HansonSun</a>
+LinkedIn: <a target = "_blank" href = "linkedin.com/in/hanson-sun/">linkedin.com/in/hanson-sun/</a><br>
+Github: <a target = "_blank" href = "https://github.com/Hanson-Sun">github.com/Hanson-Sun</a><br>
+repl.it: <a target = "_blank" href = "https://replit.com/@HansonSun">replit.com/@HansonSun</a>
 `
 
 mobile = `
@@ -339,7 +340,8 @@ var term = $('#content').terminal({
 
     },
     download_cv: function() {
-        this.echo("This feature will arrive in a future update.")
+        this.echo("Opening CV. . .")
+        window.open("resume.pdf", '_blank').focus();
     },
     joke: async function() {
         if (firstJoke) {
