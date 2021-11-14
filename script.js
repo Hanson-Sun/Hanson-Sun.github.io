@@ -207,15 +207,15 @@ A list of notable cool things I've made, some for fun, some a bit less fun
 		Formal Analysis of Constrained Dynamic Systems with Mathematics and Programming
 		<ul>
 			<li>A formal mathematics paper written for the IB Program that analyzes constrained systems. </li>
-			<li><a target=”_blank” href = "HansonS_Math_EE.pdf">PDF Link</a> (Will be updated in the future)</li>
-			<li><a target=”_blank” href = "https://hanson-sun.github.io/Math-EE/">Live Demo</a></li>
+			<li><a target = "_blank" href = "HansonS_Math_EE.pdf">PDF Link</a> (Will be updated in the future)</li>
+			<li><a target = "_blank" href = "https://hanson-sun.github.io/Math-EE/">Live Demo</a></li>
 		</ul>
 	</tr>
 	<tr>
 		Informal Analysis of Evolutionary Genetic Algorithms in Javascript
 		<ul>
 			<li>A fun investigation of genetic algorithms that I decided to write for the Programming Club.</li>
-			<li><a target=”_blank” href="https://evolutionary-genetic-algorithms.hansonsun.repl.co">Demo</a>
+			<li><a target = "_blank" href="https://evolutionary-genetic-algorithms.hansonsun.repl.co">Demo</a>
 			</li>
 		</ul>
 	</tr>	
@@ -223,12 +223,12 @@ A list of notable cool things I've made, some for fun, some a bit less fun
 		My Journey of Programmatic Physics
 		<ul>
 			<li>A big passion of mine, also influenced my formal analysis of constrained dynamics</li>
-			<li><a target=”_blank” href = "https://bounce.hansonsun.repl.co">Projectile Motion</a></li>
-			<li><a target=”_blank” href = "https://Charge-Simulation.hansonsun.repl.co">Charge Simulation</a></li>
-			<li><a target=”_blank” href = "https://Gravity-Simulation.hansonsun.repl.co">Gravity Simulation</a></li>
-			<li><a target=”_blank” href = "https://metaballs.hansonsun.repl.co">Isosurfaces</a></li>
-			<li><a target=”_blank” href = "https://sad-cloth-simulation.hansonsun.repl.co/hmmm.html">Cloth Simulation</a></li>
-			<li><a target=”_blank” href = "https://sph-fluid.hansonsun.repl.co">Simple Particle Hydrodynamics</a>(Interactive on a non-IOS smart phone)</li>
+			<li><a target = "_blank" href = "https://bounce.hansonsun.repl.co">Projectile Motion</a></li>
+			<li><a target = "_blank" href = "https://Charge-Simulation.hansonsun.repl.co">Charge Simulation</a></li>
+			<li><a target = "_blank" href = "https://Gravity-Simulation.hansonsun.repl.co">Gravity Simulation</a></li>
+			<li><a target = "_blank" href = "https://metaballs.hansonsun.repl.co">Isosurfaces</a></li>
+			<li><a target = "_blank" href = "https://sad-cloth-simulation.hansonsun.repl.co/hmmm.html">Cloth Simulation</a></li>
+			<li><a target = "_blank" href = "https://sph-fluid.hansonsun.repl.co">Simple Particle Hydrodynamics</a>(Interactive on a non-IOS smart phone)</li>
 			<li>and many others on my repl page.</li>
 
 		</ul>
@@ -237,14 +237,14 @@ A list of notable cool things I've made, some for fun, some a bit less fun
 		Math Connect Website
 		<ul>
 			<li>A complete and fully functional website for my co-founded NPO, Math Connect.</li>
-			<li><a target=”_blank” href="https://mathconnect.ca/">Website Link</a></li>
+			<li><a target = "_blank"href="https://mathconnect.ca/">Website Link</a></li>
 		</ul>
 	</tr>
 	<tr>
 		Interactive Periodic Table
 		<ul>
 			<li>A creative approach to a mundane chemistry 11 project.</li>
-			<li><a target=”_blank” href = "https://Periodic-Table.hansonsun.repl.co">Periodic Table</a></li>
+			<li><a target = "_blank" href = "https://Periodic-Table.hansonsun.repl.co">Periodic Table</a></li>
 		</ul>
 	</tr>
 
@@ -252,8 +252,8 @@ A list of notable cool things I've made, some for fun, some a bit less fun
 		Exhibition of Javascript Art 
 		<ul>
 			<li>My first attempt at digital art</li>
-			<li><a target=”_blank” href = "https://javascript-compendium.hansonsun.repl.co">Javascript Interpretation of Process Compendium by Casey Reas</a></li>
-			<li><a target=”_blank” href = "https://JavascriptArt.hansonsun.repl.co">Compilation of Javascript Art</a></li>
+			<li><a target = "_blank" href = "https://javascript-compendium.hansonsun.repl.co">Javascript Interpretation of Process Compendium by Casey Reas</a></li>
+			<li><a target = "_blank" href = "https://JavascriptArt.hansonsun.repl.co">Compilation of Javascript Art</a></li>
 		</ul>
 	</tr>
 
@@ -263,7 +263,7 @@ A list of notable cool things I've made, some for fun, some a bit less fun
 
 contact = `
 Email: <a target = "_blank" href = "contact.html">hansonsun.school@gmail.com</a><br>
-LinkedIn: <a target = "_blank" href = "linkedin.com/in/hanson-sun/">linkedin.com/in/hanson-sun/</a><br>
+LinkedIn: <a target = "_blank" href = "https://linkedin.com/in/hanson-sun/">linkedin.com/in/hanson-sun/</a><br>
 Github: <a target = "_blank" href = "https://github.com/Hanson-Sun">github.com/Hanson-Sun</a><br>
 repl.it: <a target = "_blank" href = "https://replit.com/@HansonSun">replit.com/@HansonSun</a>
 `
