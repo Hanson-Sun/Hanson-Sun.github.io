@@ -41,7 +41,9 @@ help = `
 +-------------+-----------------------------------------------+
 `
 about = `
-Hello, my name is Hanson Sun, a grade 12 IB student from Richmond Secondary School. I am a firm believer of the importance of technology and education in future society. Moreover, I enjoy investigating the beauty of the natural world through mathematics and programmatic simulations.  
+Hello! I'm Hanson Sun, an IB Diploma student at Richmond Secondary School. I am passionate
+about programming and technology. In my free time, I enjoy making fun
+programming projects and learning new skills. Other than that, I also have experience leading clubs and applying programming knowledge to real-world projects.
 <br>
 <br>
 Hobbies:
