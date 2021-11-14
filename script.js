@@ -140,11 +140,45 @@ education = `
 `
 experience = `
 	<ul class = "awards">
-		<li>Co-founder of a non-profit math tutoring organization, Math Connect. (2020 - present)</li>
-		<li>Co-founder of the RHS Programming Club (2020 - present)</li>
-		<li>Co-president of the RHS Math Club (2019 - present)</li>
-		<li>Member of the RHS Science Team (2018 - present)</li>
-		<li>Executive of Homework Help Club (2018 - 2019)</li>
+		<li>
+			Co-founder of a non-profit math tutoring organization, Math Connect. (2020 - present)
+			<ul class = "awards">
+				<li>Planned, designed, and launched a free NPO, Math Connect</li>
+				<li>Interviewed high school students as potential tutors</li>
+				<li>Managed tutors, students, and classes</li>
+				<li>Created website, mathconnect.ca</li>
+			</ul>
+		</li>
+		<li>
+			Co-founder of the RHS Programming Club (2020 - present)
+			<ul class = "awards">
+				<li>Created interactive programming curriculum and lessons every week</li>
+				<li>Teaches creative programming lessons every week</li>
+				<li>Organized school-wide programming competitions and hackathons</li>
+				<li>Implemented large scale hackathons (Hack the North) and competitions (CCC)</li>
+			</ul>
+		</li>
+		<li>
+			Co-president of the RHS Math Club (2019 - present)
+			<ul class = "awards">
+				<li>Organized large scale math competitions such as the COMC, CSMC/CIMC, and Euclid</li>
+				<li>Managed finances from student payments</li>
+			</ul>
+		</li>
+		<li>
+			Member of the RHS Science Team (2018 - present)
+			<ul class = "awards">
+				<li>Competes in various different science competitions</li>
+				<li>Plan and design pe-build events</li>
+				<li>Work collaboratively with other teammates</li>
+			</ul>
+		</li>
+		<li>
+			Executive of Homework Help Club (2018 - 2019)
+			<ul class = "awards">
+				<li>Tutored students for a range of subjects</li>
+			</ul>
+		</li>
 	</ul>
 `
 
