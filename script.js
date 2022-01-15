@@ -247,7 +247,7 @@ A list of notable cool things I've made, some for fun, some a bit less fun
 		<ul>
 			<li>A mathematical analysis on visualizing 4D polygons with a threejs javaScript implementation</li>
 			<li><a target = "_blank"href="https://hanson-sun.github.io/4d-rendering/">Demo Link</a></li>
-			<li><a target = "_blank"href="https://hanson-sun.github.io/4d-rendering/math_ia.pdf">Math paper</a> (work in progress)</li>
+			<li><a target = "_blank"href="https://github.com/Hanson-Sun/4d-rendering/blob/main/math_ia.pdf">Math paper</a> (work in progress)</li>
 		</ul>
 	</tr>
 	<tr>
