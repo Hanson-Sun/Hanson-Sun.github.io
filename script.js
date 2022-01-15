@@ -243,6 +243,14 @@ A list of notable cool things I've made, some for fun, some a bit less fun
 		</ul>
 	</tr>
 	<tr>
+		4D Perspective Rendering Method
+		<ul>
+			<li>A mathematical analysis on visualizing 4D polygons with a threejs javaScript implementation</li>
+			<li><a target = "_blank"href="https://hanson-sun.github.io/4d-rendering/">Demo Link</a></li>
+			<li><a target = "_blank"href="https://hanson-sun.github.io/4d-rendering/math_ia.pdf">Math paper</a> (work in progress)</li>
+		</ul>
+	</tr>
+	<tr>
 		Interactive Periodic Table
 		<ul>
 			<li>A creative approach to a mundane chemistry 11 project.</li>
