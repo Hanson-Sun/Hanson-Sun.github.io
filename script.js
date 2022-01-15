@@ -222,6 +222,14 @@ A list of notable cool things I've made, some for fun, some a bit less fun
 		</ul>
 	</tr>	
 	<tr>
+		4D Perspective Rendering Method
+		<ul>
+			<li>A mathematical analysis on visualizing 4D polygons with a threejs javaScript implementation</li>
+			<li><a target = "_blank"href="https://hanson-sun.github.io/4d-rendering/">Demo Link</a></li>
+			<li><a target = "_blank"href="https://github.com/Hanson-Sun/4d-rendering/blob/main/math_ia.pdf">Math paper</a> (work in progress)</li>
+		</ul>
+	</tr>
+	<tr>
 		My Journey of Programmatic Physics
 		<ul>
 			<li>A big passion of mine, also influenced my formal analysis of constrained dynamics</li>
@@ -242,14 +250,7 @@ A list of notable cool things I've made, some for fun, some a bit less fun
 			<li><a target = "_blank"href="https://mathconnect.ca/">Website Link</a></li>
 		</ul>
 	</tr>
-	<tr>
-		4D Perspective Rendering Method
-		<ul>
-			<li>A mathematical analysis on visualizing 4D polygons with a threejs javaScript implementation</li>
-			<li><a target = "_blank"href="https://hanson-sun.github.io/4d-rendering/">Demo Link</a></li>
-			<li><a target = "_blank"href="https://github.com/Hanson-Sun/4d-rendering/blob/main/math_ia.pdf">Math paper</a> (work in progress)</li>
-		</ul>
-	</tr>
+
 	<tr>
 		Interactive Periodic Table
 		<ul>
