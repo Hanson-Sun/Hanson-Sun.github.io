@@ -110,7 +110,7 @@ Academics
 		<td>+ English</td>
 		<td>▓▓▓▓▓▓▓▓▓▓▓▓░░░░░░░░</td>
 	</tr>
-
+ 
 	</table>
 General
 
