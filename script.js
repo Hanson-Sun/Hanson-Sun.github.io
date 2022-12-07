@@ -264,7 +264,7 @@ A list of notable cool things I've made, some for fun, some a bit less fun
 		<ul>
 			<li>My first attempt at digital art</li>
 			<li><a target = "_blank" href = "https://javascript-compendium.hansonsun.repl.co">Javascript Interpretation of Process Compendium by Casey Reas</a></li>
-			<li><a target = "_blank" href = "https://JavascriptArt.hansonsun.repl.co">Compilation of Javascript Art</a></li>
+			<li><a target = "_blank" href = "https://hanson-sun.github.io/JavaScript-Art/">Compilation of Javascript Art</a></li>
 		</ul>
 	</tr>
 
