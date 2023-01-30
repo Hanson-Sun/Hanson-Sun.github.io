@@ -42,7 +42,11 @@ help = `
 +-------------+-----------------------------------------------+
 `
 about = `
-Hi! I'm Hanson, a general science student with an interest in computer science. I am passionate about technology, education, and research. In my free time, I enjoy making fun programming projects and learning new skills. Other than that, I also have experience leading clubs and applying programming knowledge to real-world projects.
+Hi! I'm Hanson, a first year science student at UBC, with an interest in computer science. 
+I am passionate about technology, education, and research. 
+In my free time, I enjoy making fun programming projects and learning new skills. 
+Other than that, I also have experience leading clubs and applying programming knowledge to real-world projects.
+Take a look around this website to know me better!
 <br>
 <br>
 Hobbies:
