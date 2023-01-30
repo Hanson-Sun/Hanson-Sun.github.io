@@ -189,17 +189,29 @@ experience = `
 `
 
 awards = `
+	General Awards
 	<ul class = "awards">
 		<li>Governor General's Bronze Medal</li>
+		<li>Principal's Award throughout highschool</li>
+		<li>Mathematics HL 11 Award, Chemistry SL 11 Award, Physics 11 Award, Web Development 9/10 Award, English 10 Award. </li>
+	</ul>
+	Science Awards
+	<ul class = "awards">
 		<li>1st place in district for 2021 Waterloo's Sir Isaac Newton Physics Exam</li>
 		<li>82nd place in Canada for 2021 Waterloo's Avogadro Contest</li>
 		<li>9th place during 2021 UBC Physics Olympics, placing 3rd for the Speed of Sound Event (the event I was mainly responsible for)</li>
+		<li>3rd place during the 2019 Kwantlen Science Competition</li>
+		<li>4th place during the 2018 Kwantlen Science Competition</li>
+	</ul>
+	Math Awards
+	<ul class = "awards">
+
+		<li>Top 25% for COMC, CSMC, and Euclid Math contests</li>
 		<li>Provincial placement for 2019 Math Challengers Competition</li>
 		<li>3rd place during the 2019 Kwantlen Science Competition</li>
 		<li>4th place during the 2018 Kwantlen Science Competition</li>
-		<li>Top 25% for COMC, CSMC, and Euclid Math contests</li>
-		<li>Principal's Award throughout highschool</li>
-		<li>Mathematics HL 11 Award, Chemistry SL 11 Award, Physics 11 Award, Web Development 9/10 Award, English 10 Award. </li>
+		
+	
 	</ul>
 `
 
