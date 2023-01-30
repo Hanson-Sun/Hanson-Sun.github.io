@@ -53,7 +53,7 @@ Hobbies:
 		<li>Arduino Robotics</li>
 		<li>Sleep enthusiast</li>
 		<li>Amateur food critic (with very low standards)</li>
-	</ul>
+	</ul> 
 `
 skills = `
 	Programming
@@ -152,7 +152,7 @@ experience = `
 				<li>Planned, designed, and launched a free NPO, Math Connect</li>
 				<li>Interviewed high school students as potential tutors</li>
 				<li>Managed tutors, students, and classes</li>
-				<li>Created website, mathconnect.ca</li>
+				<li>Created website, <a href = "https://mathconnect.ca/">mathconnect.ca</a></li>
 			</ul>
 		</li>
 		<li>
