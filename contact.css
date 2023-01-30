@@ -16,6 +16,12 @@ body{
 
 
 }
+
+.hanson {
+	width: 50% !important;
+	font-size: 1px !important;
+} 
+
 #greetings{
 	text-align: left;
 	margin-bottom: -1rem;
@@ -88,6 +94,7 @@ input:focus, textarea:focus{
 	text-decoration: underline;
 	
 }
+
 
 @media screen and (min-width: 800px) {
 	body{
