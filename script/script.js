@@ -65,78 +65,47 @@ skills = `
 	<table class = 'skills'>
 	<tr>
 		<td>+ HTML,CSS</td>
-	</tr>
-	<tr>
 		<td>+ Javascript</td>
-	</tr>
-	<tr>
 		<td>+ Python</td>
 	</tr>
 	<tr>
 		<td>+ Java</td>
-	</tr>
-	<tr>
 		<td>+ Racket</td>
-	</tr>
-	<tr>
-		<td>+ LaTeX</td>
+		<td>+ C++</td>
 	</tr>
 	<tr>
 		<td>+ Julia</td>
-	</tr>
-	<tr>
+		<td>+ LaTeX</td>
 		<td>+ Git</td>
 	</tr>
-	<tr>
-		<td>+ C++</td>
-	</tr>
-	</table>
-Academics
-
-	<table class = 'skills'>
-	<tr>
-		<td>+ Mathematics</td>
-	</tr>
-	<tr>
-		<td>+ Physics</td>
-	</tr>
-	<tr>
-		<td>+ Chemistry</td>
-	</tr>
-	<tr>
-		<td>+ English</td>
-	</tr>
- 
 	</table>
 General
 
 	<table class = 'skills'>
 	<tr>
 		<td>+ Mandarin</td>
-	</tr>
-	<tr>
 		<td>+ Cantonese</td>
 	</tr>
 	<tr>
 		<td>+ Communication</td>
-	</tr>
-	<tr>
 		<td>+ Leadership</td>
 	</tr>
 	<tr>
 		<td>+ Teamwork</td>
+		<td>+ Research</td>
 	</tr>
 	</table>
 <br>
 `
+
 education = `
 	<ul class = "awards">
 		<li>Richmond Secondary School IB Diploma Student (2018 - 2022)</li>
 		<li>UBC Bachelor of Science (2022 - present)</li>
 		<li>More to come!</li>
 	</ul>
-
 `
+
 experience = `
 	<ul class = "awards">
 		<li>
@@ -196,6 +165,7 @@ awards = `
 	General Awards
 	<ul class = "awards">
 		<li>Governor General's Bronze Medal</li>
+		<li>BC Achievement scholarship</li>
 		<li>Principal's Award throughout highschool</li>
 		<li>Mathematics HL 11 Award, Chemistry SL 11 Award, Physics 11 Award, Web Development 9/10 Award, English 10 Award. </li>
 	</ul>
@@ -223,13 +193,13 @@ projects = `
 
 A list of notable cool things I've made, some for fun, some more serious
 <br><br>
-<table>
+<table class = "projects">
 	<tr>
 		Formal Analysis of Constrained Dynamic Systems with Mathematics and Programming
 		<ul>
 			<li>A formal mathematics paper written for the IB Program that analyzes constrained systems. </li>
-			<li><a target = "_blank" href = "HansonS_Math_EE.pdf">PDF Link</a> (Will be updated in the future)</li>
-			<li><a target = "_blank" href = "https://hanson-sun.github.io/Math-EE/">Live Demo</a></li>
+			<li><a target = "_blank" href = "./pdfs/HansonS_Math_EE.pdf">PDF Link</a> (Will be updated in the future)</li>
+			<li><a target = "_blank" href = "https://hanson-sun.github.io/particle-physics-engine/">Live Demo</a></li>
 		</ul>
 	</tr>
 	<tr>
@@ -306,7 +276,7 @@ A list of notable cool things I've made, some for fun, some more serious
 `
 
 contact = `
-Email: <a target = "_blank" href = "contact.html">hansonsun.school@gmail.com</a><br>
+Email: <a target = "_blank" href = "./html/contact.html">hansonsun.school@gmail.com</a><br>
 LinkedIn: <a target = "_blank" href = "https://linkedin.com/in/hanson-sun/">linkedin.com/in/hanson-sun/</a><br>
 Github: <a target = "_blank" href = "https://github.com/Hanson-Sun">github.com/Hanson-Sun</a><br>
 repl.it: <a target = "_blank" href = "https://replit.com/@HansonSun">replit.com/@HansonSun</a>

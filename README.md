@@ -10,5 +10,5 @@ I'm Hanson Sun incase you havent realized yet!
 - 🔭 I’m currently working on random stuff
 - 🌱 I’m currently learning programming
 - 📫 How to reach me: doctorhanson21@gmail.com
-- ⚡ Fun fact: ok
+- ⚡ Fun fact: idk :sob:
 -->

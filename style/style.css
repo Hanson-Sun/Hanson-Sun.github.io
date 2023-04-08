@@ -15,19 +15,20 @@
     a {
         color: rgb(46, 116, 255);
         text-shadow: 0px 0px 3px rgb(46, 116, 255);
-        background: var(--background);
-        transition: background, color 0.15s;
-        box-shadow: none;
+        background-color: var(--background);
+        transition: background-color 0.15s, color 0.15s;
         display: box;
+        box-shadow: none;
         position: relative;
-        z-index: 1000;
+        z-index: 100 !important;
         pointer-events: auto;
     }
     
     a:hover {
-        background: rgb(46, 116, 255);
-        color: var(--background);
-        box-shadow: 0 0 10 10 var(--background);
+        z-index: 100 !important;
+        color: #19191f;
+        background-color: rgb(46, 116, 255);
+        box-shadow:0 0 10 10 rgb(46, 116, 255);
     }
     
     .cmd-wrapper {
@@ -51,6 +52,24 @@
         padding-left: 0;
         margin-top: -0.05rem;
         padding: 0.5rem;
+        pointer-events: auto;
+        position: relative;
+        z-index: 2000 !important;
+        user-select: auto;
+        -webkit-user-select: auto;
+        -webkit-touch-callout: auto;
+        -moz-user-select: auto;
+        -ms-user-select: auto;
+    }
+
+    ::-moz-selection { /* Code for Firefox */
+        color: var(--background);
+        background: var(--color);
+    }
+      
+    ::selection {
+        color: var(--background);
+        background: var(--color);
     }
     
     .skills {
@@ -70,8 +89,9 @@
     .awards li {
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
+        z-index: 100;
     }
-    
+
     li {
         padding-left: 1em;
         text-indent: -1em;
