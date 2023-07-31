@@ -42,10 +42,10 @@ help = `
 +-------------+-----------------------------------------------+
 `
 about = `
-Hi! I'm Hanson, a first year science student at UBC, with an interest in computer science. 
+Hi! I'm Hanson, a computer science student at UBC with a minor in data science! 
 I am passionate about technology, education, and research. 
 In my free time, I enjoy making fun programming projects and learning new skills. 
-Other than that, I also have experience leading clubs and applying programming knowledge to real-world projects.
+Other than that, I also have experience working in groups and applying my knowledge in practical and theoretical ways.
 Take a look around this website to know me better!
 <br>
 <br>
@@ -54,7 +54,7 @@ Hobbies:
 		<li>Programming</li>
 		<li>Cycling</li>
 		<li>Playing the saxophone</li>
-		<li>Arduino Robotics</li>
+		<li>Tinkering with arduino robotics</li>
 		<li>Sleep enthusiast</li>
 		<li>Amateur food critic (with very low standards)</li>
 	</ul> 
@@ -65,7 +65,7 @@ skills = `
 	<table class = 'skills'>
 	<tr>
 		<td>+ HTML,CSS</td>
-		<td>+ Javascript</td>
+		<td>+ JavaScript</td>
 		<td>+ Python</td>
 	</tr>
 	<tr>
@@ -75,12 +75,11 @@ skills = `
 	</tr>
 	<tr>
 		<td>+ Julia</td>
-		<td>+ LaTeX</td>
+		<td>+ R</td>
 		<td>+ Git</td>
 	</tr>
 	</table>
 General
-
 	<table class = 'skills'>
 	<tr>
 		<td>+ Mandarin</td>
@@ -100,9 +99,8 @@ General
 
 education = `
 	<ul class = "awards">
-		<li>Richmond Secondary School IB Diploma Student (2018 - 2022)</li>
 		<li>UBC Bachelor of Science (2022 - present)</li>
-		<li>More to come!</li>
+		<li>Richmond Secondary School IB Diploma Student (2018 - 2022)</li>
 	</ul>
 `
 
@@ -111,12 +109,12 @@ experience = `
 		<li>
 			UBC REX Participant (Undergraduate Research) (2022 - present)
 			<ul class = "awards">
-				<li>Conduct bio-computing research under the guidance of a graduate professor</li>
-				<li>Preparation to present at research conference MURC</li>
-				<li>Create cellular automata and ODE models with Morpheus and Jupyter Notebook</li>
-				<li>Research topic: A Step Forward in Understanding Skin Cancer: Modelling Keratinocyte Stem Cell
-				     Proliferation Regulated by p63 and c-MYC Proteins
+				<li>Conduct bio-computing research under the guidance of a graduate professor, and presented the research conference MURC</li>
+				<li>Simulate Cells using CPM (a cellular automata method) with Morpheus</li>
+				<li>Model ODE behaviour using python numpy, and visualize with matplotlib</li>
+				<li>Research topic: The First Step in the Framework of Understanding Hematopoietic Stem Cells in a Dynamic System
 				</li>
+				<li><a href = "https://github.com/Hanson-Sun/HSC-Simulation-Pipeline">Results</a></li>
 			</ul>
 		</li>
 		<li>
@@ -164,6 +162,7 @@ experience = `
 awards = `
 	General Awards
 	<ul class = "awards">
+		<li>UBC Science Scholar (2023)</li>
 		<li>Governor General's Bronze Medal</li>
 		<li>BC Achievement scholarship</li>
 		<li>Principal's Award throughout highschool</li>
@@ -195,50 +194,80 @@ A list of notable cool things I've made, some for fun, some more serious
 <br><br>
 <table class = "projects">
 	<tr>
-		Formal Analysis of Constrained Dynamic Systems with Mathematics and Programming
+		PPhys2D - A light-weight particle-based physics library
 		<ul>
-			<li>A formal mathematics paper written for the IB Program that analyzes constrained systems. </li>
+			<li>A JavaScript 2D physics library that is based on particle-interactions</li>
+			<li>Supports constrained dynamics, collisions, smoothed-particle hydrodynamics, 2D HTML canvas rendering, etc</li>
+			<li>Code base is fully documented following JsDoc standards.</li>
+			<li><a target = "_blank" href = "https://hanson-sun.github.io/particle-physics-engine/">Main page</a></li>
 			<li><a target = "_blank" href = "./pdfs/HansonS_Math_EE.pdf">PDF Link</a> (Will be updated in the future)</li>
-			<li><a target = "_blank" href = "https://hanson-sun.github.io/particle-physics-engine/">Live Demo</a></li>
 		</ul>
 	</tr>
 	<tr>
-		Informal Analysis of Evolutionary Genetic Algorithms in Javascript
-		<ul>
-			<li>A fun investigation of genetic algorithms that I decided to write for the Programming Club.</li>
-			<li><a target = "_blank" href="https://evolutionary-genetic-algorithms.hansonsun.repl.co">Demo</a>
-			</li>
-		</ul>
-	</tr>	
-	<tr>
 		4D Perspective Rendering Method
 		<ul>
-			<li>A mathematical analysis on visualizing 4D polygons with a threejs javaScript implementation</li>
+			<li>A mathematical analysis on visualizing 4D polygons with a threejs javaScript renderer.</li>
+			<li>Produced a Latex paper along with a programmatic demonstration.</li>
 			<li><a target = "_blank"href="https://hanson-sun.github.io/4d-rendering/">Demo Link</a></li>
 			<li><a target = "_blank"href="https://github.com/Hanson-Sun/4d-rendering/blob/main/math_ia.pdf">Math paper</a></li>
 		</ul>
 	</tr>
 	<tr>
-		Drawing with Sound
+		Drawing with Sound in Python
 		<ul>
 			<li>Rendering bitmap images on a digital oscilloscope with Fourier Transform and Image Processing</li>
+			<li>Image processing with cv2, path finding with sklearn, and auto editing and generation with numpy and scipy</li>
 			<li><a target = "_blank"href="https://github.com/Hanson-Sun/Drawing-With-Sound">Source Code and Demo</a></li>
 		</ul>
 	</tr>
 	<tr>
-		My Journey of Programmatic Physics
+		Informal Analysis of Evolutionary Genetic Algorithms in Javascript
 		<ul>
-			<li>A big passion of mine, also influenced my formal analysis of constrained dynamics</li>
-			<li><a target = "_blank" href = "https://bounce.hansonsun.repl.co">Projectile Motion</a></li>
-			<li><a target = "_blank" href = "https://Charge-Simulation.hansonsun.repl.co">Charge Simulation</a></li>
-			<li><a target = "_blank" href = "https://Gravity-Simulation.hansonsun.repl.co">Gravity Simulation</a></li>
-			<li><a target = "_blank" href = "https://metaballs.hansonsun.repl.co">Isosurfaces</a></li>
-			<li><a target = "_blank" href = "https://sad-cloth-simulation.hansonsun.repl.co/hmmm.html">Cloth Simulation</a></li>
-			<li><a target = "_blank" href = "https://sph-fluid.hansonsun.repl.co">Simple Particle Hydrodynamics</a>(Interactive on a non-IOS smart phone)</li>
-			<li>and many others on my repl page.</li>
+			<li>A website investigating evolutionary genetic algorithms, written from scratch.</li>
+			<li>Clean website design along with (very) informal writing to convey machine learning concepts.</li>
+			<li><a target = "_blank" href="https://hanson-sun.github.io/evolving-rockets/">Demo</a>
+			</li>
+		</ul>
+	</tr>	
 
+	<tr>
+		Exhibition of Javascript Art 
+		<ul>
+			<li>My first attempt at digital art, with a focus on website design.</li>
+			<li><a target = "_blank" href = "https://javascript-compendium.hansonsun.repl.co">Javascript Interpretation of Process Compendium by Casey Reas</a></li>
+			<li><a target = "_blank" href = "https://hanson-sun.github.io/JavaScript-Art/">Compilation of Javascript Art</a></li>
 		</ul>
 	</tr>
+
+	<tr>
+		FeedForward Neural Network and Matrix library (c++) WORK IN PROGRESS
+		<ul>
+			<li>An implementation of a feed-forward neural network written from scratch.</li>
+			<li>Also along with a multi-threaded matrix math library.</li>
+			<li><a target = "_blank" href = "https://github.com/Hanson-Sun/feed-forward-neural-network">Neural Network</a></li>
+			<li><a target = "_blank" href = "https://github.com/Hanson-Sun/cpp-matrix-library">Matrix library</a></li>
+		</ul>
+	</tr>
+
+	<tr>
+		Music Classification
+		<ul>
+			<li>Classify music genres given spectrogram information using R.</li>
+			<li>Implemented a KNN algorithm with feed-forward predictor selection.</li>
+			<li>Visualized results in a Jupyter notebook using parallel coordinate plots, scatter plot matrices, etc.</li>
+			<li><a target = "_blank" href = "https://github.com/Hanson-Sun/music-classification">Code Base</a></li>
+		</ul>
+	</tr>
+
+	<tr>
+		CPSC (a Java Flashcards app)
+		<ul>
+			<li>Java flashcard application for a course project</li>
+			<li>Full JavaDoc documentation, unit testing with JUnit</li>
+			<li>Custom UI Java Swing and data storage using JSON files</li>
+		</ul>
+	</tr>
+
 	<tr>
 		Math Connect Website
 		<ul>
@@ -254,20 +283,19 @@ A list of notable cool things I've made, some for fun, some more serious
 			<li><a target = "_blank" href = "https://Periodic-Table.hansonsun.repl.co">Periodic Table</a></li>
 		</ul>
 	</tr>
-	<tr>
-	CPSC (a Java Flashcards app)
-		<ul>
-			<li>A unique desktop java flashcard application, really helps me study bio!</li>
-			<li><a target = "_blank" href = "">WORK IN PROGRESS</a></li>
-		</ul>
-	</tr>
 
 	<tr>
-		Exhibition of Javascript Art 
+		My Journey of Programmatic Physics
 		<ul>
-			<li>My first attempt at digital art</li>
-			<li><a target = "_blank" href = "https://javascript-compendium.hansonsun.repl.co">Javascript Interpretation of Process Compendium by Casey Reas</a></li>
-			<li><a target = "_blank" href = "https://hanson-sun.github.io/JavaScript-Art/">Compilation of Javascript Art</a></li>
+			<li>A big passion of mine, also influenced my formal analysis of constrained dynamics</li>
+			<li><a target = "_blank" href = "https://bounce.hansonsun.repl.co">Projectile Motion</a></li>
+			<li><a target = "_blank" href = "https://Charge-Simulation.hansonsun.repl.co">Charge Simulation</a></li>
+			<li><a target = "_blank" href = "https://Gravity-Simulation.hansonsun.repl.co">Gravity Simulation</a></li>
+			<li><a target = "_blank" href = "https://metaballs.hansonsun.repl.co">Isosurfaces</a></li>
+			<li><a target = "_blank" href = "https://sad-cloth-simulation.hansonsun.repl.co/hmmm.html">Cloth Simulation</a></li>
+			<li><a target = "_blank" href = "https://sph-fluid.hansonsun.repl.co">Simple Particle Hydrodynamics</a>(Interactive on a non-IOS smart phone)</li>
+			<li>and many others on my repl page.</li>
+
 		</ul>
 	</tr>
 
