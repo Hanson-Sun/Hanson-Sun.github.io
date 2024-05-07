@@ -80,7 +80,7 @@ education = `
 `
 
 experience = `
-	I'm getting lazy updating this website, so check out my <a target = "_blank" href = "./pdfs/resume_updated.pdf">resume</a> instead! Or maybe my linkedin...
+	I'm getting lazy updating this website, so check out my <a target = "_blank" href = "./pdfs/Hanson_s_Resume.pdf">resume</a> instead! Or maybe my linkedin...
 `
 
 awards = `
@@ -224,7 +224,7 @@ var term = $('#content').terminal({
 	},
 	download_cv: function () {
 		this.echo("Opening CV. . .")
-		window.open("./pdfs/resume_updated.pdf", '_blank').focus();
+		window.open("./pdfs/Hanson_s_Resume.pdf", '_blank').focus();
 	},
 	joke: async function () {
 		if (firstJoke) {
