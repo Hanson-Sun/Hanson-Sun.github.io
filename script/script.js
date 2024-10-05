@@ -5,7 +5,7 @@ greet = `
  | __ \/ _\` | ' \\(_-</ _ \\ ' \\  \\__ \\ || | ' \\ 
  |_||_\\__,_|_||_\/__\/\\___\/_||_| |___\/\\_,_|_||_|     
 
-https://github.com/Hanson-Sun    https://linkedin.com/in/hanson-sun/
+ https://github.com/Hanson-Sun    https://linkedin.com/in/hanson-sun/
 .....................................................................
  Welcome to my terminal, enter "help" for the documentation of all commands. 
  `
@@ -22,11 +22,7 @@ help = `
 +-------------+-----------------------------------------------+
 | projects    | A showcase of some of my programming projects |
 +-------------+-----------------------------------------------+
-| skills      | My skills and abilities                       |
-+-------------+-----------------------------------------------+
 | education   | A summary of my education journey             |
-+-------------+-----------------------------------------------+
-| awards      | My achievements recognized by others          |
 +-------------+-----------------------------------------------+
 | contact     | My contact info                               |
 +-------------+-----------------------------------------------+
@@ -47,12 +43,15 @@ I am passionate about technology, education, and research. If I'm not grinding a
 I enjoy making fun programming projects and learning new skills. Take a look around this website to know me better!
 <br>
 <br>
-Hobbies:
+Some of my interests include:
 <ul class = "awards">
-	<li>Programming</li>
+	<li>Performance computing</li>
+	<li>Embedded systems and low level programming</li>
+	<li>Machine learning and data science</li>
+	<li>Computational science and simulations</li>
 	<li>Cycling</li>
+	<li>Hiking</li>
 	<li>Playing the saxophone</li>
-	<li>Tinkering embedded systems</li>
 	<li>Sleep enthusiast</li>
 	<li>Amateur food critic (with very low standards)</li>
 </ul> 
@@ -60,10 +59,10 @@ Hobbies:
 skills = `
 <table class = 'skills'>
 	<tr>
-		Programming Languages: C/C++, JavaScript, Python, Java, HTML/CSS, R, Unity C# <br>
+		Programming Languages: C/C++, JavaScript, Python, Java, HTML/CSS, R, C#, LaTeX, Julia <br>
 	</tr>
 	<tr>
-		Frameworks / Libraries: QT, QML, AWS, Jupyter, Django, Node.js, JUnit, Scikit-learn, NumPy, TensorFlow <br>
+		Frameworks / Libraries: React, QT/QML, AWS, Jupyter, Pandas, Django, Node.js, JUnit, Scikit-learn, NumPy, TensorFlow <br>
 	</tr>
 	<tr>
 		Developer Tools: Git, Docker, Valgrind, MPLAB, GDB, GPROF, WSL, Makefile, Unity <br>
@@ -81,6 +80,8 @@ education = `
 
 experience = `
 	I'm getting lazy updating this website, so check out my <a target = "_blank" href = "./pdfs/Hanson_s_Resume.pdf">resume</a> instead! Or maybe my linkedin...
+	<br>
+	<br>
 `
 
 awards = `
@@ -98,6 +99,7 @@ projects = `
 	For the best list, please visit my github! <a target = "_blank" href = "https://github.com/Hanson-Sun">github.com/Hanson-Sun</a>! <br> Heres a quick list of topics I've worked on
 	<ul class = "awards">
 		<li>Computational physics and physics simulations!</li>
+		<li>Embedded systems and IoT</li>
 		<li>Computational biology research</li>
 		<li>Data science and statistical analysis</li>
 		<li>Data processing and computer vision</li>
@@ -111,7 +113,7 @@ contact = `
 Email: <a target = "_blank" href = "./html/contact.html">hansonsun.school@gmail.com</a><br>
 LinkedIn: <a target = "_blank" href = "https://linkedin.com/in/hanson-sun/">linkedin.com/in/hanson-sun/</a><br>
 Github: <a target = "_blank" href = "https://github.com/Hanson-Sun">github.com/Hanson-Sun</a><br>
-repl.it: <a target = "_blank" href = "https://replit.com/@HansonSun">replit.com/@HansonSun</a>
+<br>
 `
 
 mobile = `
@@ -170,11 +172,10 @@ var term = $('#content').terminal({
 	},
 	about: function () {
 		this.echo(about, { raw: true });
-		this.echo(asciiHanson, { raw: true });
 	},
-	skills: function () {
-		this.echo(skills, { raw: true });
-	},
+	// skills: function () {
+	// 	this.echo(skills, { raw: true });
+	// },
 
 	projects: async function () {
 		// time = 42;
@@ -190,9 +191,9 @@ var term = $('#content').terminal({
 	progress: function () {
 		pb(0, 20, 50, "Loading Data    ");
 	},
-	awards: function () {
-		this.echo(awards, { raw: true });
-	},
+	// awards: function () {
+	// 	this.echo(awards, { raw: true });
+	// },
 	education: function () {
 		this.echo(education, { raw: true });
 	},
@@ -208,12 +209,12 @@ var term = $('#content').terminal({
 	all: function () {
 		this.echo("<h1>About</h1><br>", { raw: true });
 		this.echo(about, { raw: true })
-		this.echo("<h1>Skills</h1><br>", { raw: true });
-		this.echo(skills, { raw: true });
+		// this.echo("<h1>Skills</h1><br>", { raw: true });
+		// this.echo(skills, { raw: true });
 		this.echo("<h1>Experience</h1>", { raw: true });
 		this.echo(experience, { raw: true });
-		this.echo("<h1>Awards</h1>", { raw: true });
-		this.echo(awards, { raw: true });
+		// this.echo("<h1>Awards</h1>", { raw: true });
+		// this.echo(awards, { raw: true });
 		this.echo("<h1>Projects</h1><br>", { raw: true });
 		this.echo(projects, { raw: true });
 		this.echo("<h1>Education</h1>", { raw: true });
@@ -271,5 +272,5 @@ var term = $('#content').terminal({
 
 
 pb(0, 25, 45, "Loading Data    ", projects).then(function () {
-	term.update(-1, greet);
+	term.update(-1, greet,);
 });
