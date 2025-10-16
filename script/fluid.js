@@ -198,8 +198,11 @@ function animate() {
     requestAnimFrame();
     c.clearRect(0, 0, canvas.width, canvas.height);
     for (p of particlelist) {
-        p.vy += Math.min(g[1] * timestep, 3);
-        p.vx += Math.min(g[0] * timestep, 3);
+        p.vy += g[1] * timestep;
+        p.vx += g[0] * timestep
+
+        p.vy = Math.min(p.vy, 50);
+        p.vx = Math.min(p.vx, 50);
     }
 
     for (p of particlelist) {
