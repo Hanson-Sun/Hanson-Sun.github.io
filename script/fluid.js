@@ -38,7 +38,7 @@ var canvas = document.getElementById('test'),
     c = canvas.getContext('2d');
 
 canvas.width = window.innerWidth;
-canvas.height = 0.95 * window.innerHeight;
+canvas.height = 0.98 * window.innerHeight;
 
 var lastCalledTime;
 var fps;
@@ -86,26 +86,26 @@ function callevent() {
     } else return;
 }
 
-canvas.addEventListener("mousedown", function (evt) {
-    var oldmousePos = getMousePos(canvas, evt);
-    startmouse.x = oldmousePos.x;
-    startmouse.y = oldmousePos.y;
-    mouseisdown = true;
-    callevent();
-}, false);
+// canvas.addEventListener("mousedown", function (evt) {
+//     var oldmousePos = getMousePos(canvas, evt);
+//     startmouse.x = oldmousePos.x;
+//     startmouse.y = oldmousePos.y;
+//     mouseisdown = true;
+//     callevent();
+// }, false);
 
-canvas.addEventListener("mousemove", function (evt) {
-    var mousePos = getMousePos(canvas, evt);
-    endmouse.x = mousePos.x;
-    endmouse.y = mousePos.y;
-}, false);
+// canvas.addEventListener("mousemove", function (evt) {
+//     var mousePos = getMousePos(canvas, evt);
+//     endmouse.x = mousePos.x;
+//     endmouse.y = mousePos.y;
+// }, false);
 
-canvas.addEventListener("mouseup", function (evt) {
-    var newmousePos = getMousePos(canvas, evt);
-    endmouse.x = newmousePos.x;
-    endmouse.y = newmousePos.y;
-    mouseisdown = false;
-}, false);
+// canvas.addEventListener("mouseup", function (evt) {
+//     var newmousePos = getMousePos(canvas, evt);
+//     endmouse.x = newmousePos.x;
+//     endmouse.y = newmousePos.y;
+//     mouseisdown = false;
+// }, false);
 
 function requestAnimFrame() {
     if (!lastCalledTime) {
