@@ -9,7 +9,6 @@ greet = `
 
 .....................................................................
  Welcome to my terminal, enter "help" for the documentation of all commands. 
- 
 `
 
 

@@ -119,7 +119,7 @@ function requestAnimFrame() {
 
     // console.log(fps);
 
-    if (fps > 67 && particlelist.length < 400) {
+    if (fps > 65 && particlelist.length < 400) {
         let p = Object.create(particle);
         p.x = Math.random() * canvas.width / 1.5;
         p.y = Math.random() * (canvas.height / 2);
@@ -128,7 +128,7 @@ function requestAnimFrame() {
         p.prevx = 0;
         p.prevy = 0;
         particlelist.push(p);
-    } else if (particlelist.length > 200) {
+    } else if (particlelist.length > 150) {
         particlelist.pop();
     }
 }
