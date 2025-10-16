@@ -27,7 +27,7 @@ function startRandomGravity() {
     const scale = 0.5;
     setInterval(() => {
         target = [(Math.random() - 0.5) * scale, (Math.random() - 0.5) * scale];
-    }, 8000);
+    }, 5000);
     setInterval(() => {
         g[0] += (target[0] - g[0]) * 0.01;
         g[1] += (target[1] - g[1]) * 0.01;
@@ -48,11 +48,11 @@ var particlelist = [];
 var timestep = 0.7;
 var nearlimit = 65;
 var h = 70;
-var restdensity = 3;
+var restdensity = 4;
 var stiffness = 0.6;
-var nearstiffness = 1;
-var radius = 5;
-var visca = 0;
+var nearstiffness = 1.1;
+var radius = 6;
+var visca = 0.01;
 var viscb = 0.01;
 var amount = 167;
 
@@ -192,7 +192,7 @@ function doubledensityrelaxation() {
     }
 }
 
-const drag = 0.99999;
+const drag = 0.9999;
 
 function animate() {
     requestAnimFrame();
@@ -217,10 +217,10 @@ function animate() {
         p.x = p.prevx + p.vx * timestep * drag;
         p.y = p.prevy + p.vy * timestep * drag;
 
-        if (p.x >= canvas.width - radius) { p.x = canvas.width - radius; p.vx *= -1; }
-        if (p.x <= radius) { p.x = radius; p.vx *= -0.999; }
-        if (p.y >= canvas.height - radius) { p.y = canvas.height - radius; p.vy *= -1; }
-        if (p.y <= radius) { p.y = radius; p.vy *= -0.999; }
+        if (p.x >= canvas.width - radius) { p.x = canvas.width - radius; p.vx *= -0.9; }
+        if (p.x <= radius) { p.x = radius; p.vx *= -0.9; }
+        if (p.y >= canvas.height - radius) { p.y = canvas.height - radius; p.vy *= -0.9; }
+        if (p.y <= radius) { p.y = radius; p.vy *= -0.9; }
 
         c.beginPath();
         c.arc(p.x, p.y, radius, 0, 2 * Math.PI);
