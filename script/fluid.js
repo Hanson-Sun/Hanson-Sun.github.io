@@ -29,9 +29,9 @@ function startRandomGravity() {
         target = [(Math.random() - 0.5) * scale, (Math.random() - 0.5) * scale];
     }, 8000);
     setInterval(() => {
-        g[0] += (target[0] - g[0]) * 0.02;
-        g[1] += (target[1] - g[1]) * 0.02;
-    }, 16);
+        g[0] += (target[0] - g[0]) * 0.01;
+        g[1] += (target[1] - g[1]) * 0.01;
+    }, 30);
 }
 
 var canvas = document.getElementById('test'),
@@ -56,7 +56,7 @@ var visca = 0;
 var viscb = 0.01;
 var amount = 167;
 
-c.strokeStyle = "#4da3ff";
+c.strokeStyle = "#366aa2ff";
 
 var particle = { x: null, y: null, vx: null, vy: null, prevx: null, prevy: null };
 var startmouse = { x: 0, y: 0 };

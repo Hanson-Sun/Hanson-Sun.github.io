@@ -53,15 +53,12 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            /* true centering */
             text-align: center;
-            padding: 2rem;
             max-width: 900px;
-            /* ⬅️ max width for content */
             margin: 0 auto;
-            /* ⬅️ center horizontally */
             box-sizing: border-box;
-            transform: translateY(5vh);
-            /* ⬅️ slight downward shift to better vertical balance */
+            padding: 0 2rem;
         }
 
         h1 {
@@ -101,18 +98,22 @@
             height: 18px;
             stroke-width: 1.8;
         }
+
+        .highlight {
+            background: linear-gradient(90deg, var(--link), #ff8a00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 600;
+        }
     </style>
 </head>
 
-
-
 <body>
     <canvas id="test"></canvas>
-
     <main>
-        <h1>Hanson Sun</h1>
-        <p>Honours Computer Science student at UBC, passionate about systems, ML, and building efficient software.</p>
-        <p>Worked on embedded systems, ML compilers, research, and a little teaching.</p>
+        <h1>Hi, I'm <span class="highlight">Hanson Sun</span></h1>
+        <p>An honours computer science student at UBC, passionate about systems, ML, and building efficient software.</p>
+        <p>I've worked on embedded systems, ML compilers, research, and a little teaching.</p>
         <p>When I'm not locked in, you'll find me cycling ⊕ hiking ⊕ cooking.</p>
         <div style="height:1rem"></div>
         <div class="links">
