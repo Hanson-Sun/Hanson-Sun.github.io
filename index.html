@@ -2,20 +2,132 @@
 <html lang="en">
 
 <head>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css" />
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hanson Sun</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="shortcut icon" href="assets/favicon.png" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Hanson Sun's fun and exciting personal website">
-    <title>Hanson's Terminal</title>
+    <meta name="description" content="Hanson's fun and exciting personal website">
+    <style>
+        :root {
+            --bg: #fafafa;
+            --text: #1a1a1a;
+            --link: #007aff;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0d0d0d;
+                --text: #f2f2f2;
+                --link: #4da3ff;
+            }
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            max-width: 900px;
+            /* ⬅️ max width for content */
+            margin: 0 auto;
+            /* ⬅️ center horizontally */
+            box-sizing: border-box;
+            transform: translateY(5vh);
+            /* ⬅️ slight downward shift to better vertical balance */
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-size: 0.95rem;
+            margin: 0.3rem 0 0.3rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        a {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            text-decoration: none;
+            color: var(--link);
+            transition: opacity 0.2s ease;
+        }
+
+        a:hover {
+            opacity: 0.7;
+        }
+
+        svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 1.8;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="content"></div>
+    <canvas id="test"></canvas>
 
-    <script src="script.js"></script>
+    <main>
+        <h1>Hanson Sun</h1>
+        <p>Honours Computer Science student at UBC, passionate about systems, ML, and building efficient software.</p>
+        <p>Worked on embedded systems, ML compilers, academic research, and a little teaching.</p>
+        <p>When I'm not locked in, you'll find me cycling ^ hiking ^ cooking.</p>
+        <div style="height:1rem"></div>
+        <div class="links">
+            <a href="https://github.com/hanson-sun" target="_blank"><i data-lucide="github"></i>GitHub</a>
+            <a href="https://linkedin.com/in/hanson-sun" target="_blank"><i data-lucide="linkedin"></i>LinkedIn</a>
+            <a href="mailto:hansonsun.school@gmail.com"><i data-lucide="mail"></i>Email</a>
+            <a href="https://discord.com/users/governmentofbc" target="_blank"><i
+                    data-lucide="message-circle"></i>Discord</a>
+            <a href="https://instagram.com/_hanson_s_/" target="_blank"><i data-lucide="instagram"></i>Instagram</a>
+            <a href="resume.pdf" target="_blank"><i data-lucide="file-text"></i>Resume</a>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+    </script>
+    <script src="fluid.js"></script>
 </body>
 
 </html>
