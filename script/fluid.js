@@ -70,21 +70,21 @@ function getMousePos(c, evt) {
     return { x: evt.clientX - rect.left, y: evt.clientY - rect.top };
 }
 
-function callevent() {
-    if (mouseisdown) {
-        sign = Math.random() < 0.5 ? -1 : 1;
-        sign2 = Math.random() < 0.5 ? -1 : 1;
-        p = Object.create(particle);
-        p.x = endmouse.x;
-        p.y = endmouse.y;
-        p.vx = Math.random() * 1 * sign;
-        p.vy = Math.random() * 1 * sign2;
-        p.prevx = 0;
-        p.prevy = 0;
-        particlelist.push(p);
-        var i = setTimeout("callevent()", 1);
-    } else return;
-}
+// function callevent() {
+//     if (mouseisdown) {
+//         sign = Math.random() < 0.5 ? -1 : 1;
+//         sign2 = Math.random() < 0.5 ? -1 : 1;
+//         p = Object.create(particle);
+//         p.x = endmouse.x;
+//         p.y = endmouse.y;
+//         p.vx = Math.random() * 1 * sign;
+//         p.vy = Math.random() * 1 * sign2;
+//         p.prevx = 0;
+//         p.prevy = 0;
+//         particlelist.push(p);
+//         var i = setTimeout("callevent()", 1);
+//     } else return;
+// }
 
 // canvas.addEventListener("mousedown", function (evt) {
 //     var oldmousePos = getMousePos(canvas, evt);
@@ -201,8 +201,8 @@ function animate() {
         p.vy += g[1] * timestep;
         p.vx += g[0] * timestep
 
-        p.vy = Math.min(p.vy, 50);
-        p.vx = Math.min(p.vx, 50);
+        p.vy = Math.min(p.vy, 45);
+        p.vx = Math.min(p.vx, 45);
     }
 
     for (p of particlelist) {
