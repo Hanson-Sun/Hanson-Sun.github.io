@@ -253,9 +253,9 @@ function animate() {
         p.x = p.prevx + p.vx * timestep * drag;
         p.y = p.prevy + p.vy * timestep * drag;
 
-        if (p.x >= canvas.width - radius) { p.x = canvas.width - radius; p.vx *= -0.9; }
+        if (p.x >= SIM_WIDTH - radius) { p.x = SIM_WIDTH - radius; p.vx *= -0.9; }
         if (p.x <= radius) { p.x = radius; p.vx *= -0.9; }
-        if (p.y >= canvas.height - radius) { p.y = canvas.height - radius; p.vy *= -0.9; }
+        if (p.y >= SIM_HEIGHT - radius) { p.y = SIM_HEIGHT - radius; p.vy *= -0.9; }
         if (p.y <= radius) { p.y = radius; p.vy *= -0.9; }
     }
 
