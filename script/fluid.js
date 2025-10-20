@@ -4,22 +4,38 @@ ctx.width = document.body.clientWidth;
 ctx.height = document.body.clientHeight;
 
 var g = [0, 1];
-if ('Accelerometer' in window && 'permissions' in navigator) {
-    navigator.permissions.query({ name: 'accelerometer' }).then(result => {
-        if (result.state === 'granted') {
-            isAccelerometerActive = true;
-            const acl = new Accelerometer({ frequency: 60 });
-            acl.addEventListener('reading', () => {
-                g = [-acl.x / 10, acl.y / 10];
-            });
-            acl.start();
-        } else {
-            startRandomGravity();
-        }
-    }).catch(() => startRandomGravity());
-} else {
-    startRandomGravity();
+function tryAccelerometer() {
+    if (!('Accelerometer' in window)) {
+        startRandomGravity();
+        return;
+    }
+
+    let acl;
+    let didRead = false;
+    try {
+        acl = new Accelerometer({ frequency: 60 });
+        const timeout = setTimeout(() => {
+            if (!didRead) {
+                console.warn("No accelerometer data — using random gravity.");
+                acl.stop();
+                startRandomGravity();
+            }
+        }, 2000); // wait 2s for any readings
+
+        acl.addEventListener('reading', () => {
+            didRead = true;
+            clearTimeout(timeout);
+            g = [-acl.x / 10, acl.y / 10];
+        });
+        acl.start();
+    } catch (e) {
+        console.warn("Accelerometer not available:", e);
+        startRandomGravity();
+    }
 }
+
+tryAccelerometer();
+
 
 // Smoothly switch random gravity direction every few seconds
 function startRandomGravity() {
@@ -40,9 +56,6 @@ var canvas = document.getElementById('test'),
 canvas.width = window.innerWidth;
 canvas.height = 0.98 * window.innerHeight;
 
-var lastCalledTime;
-var fps;
-var prevfps = 100;
 var particlelist = [];
 
 var timestep = 0.7;
@@ -54,7 +67,7 @@ var nearstiffness = 1.1;
 var radius = 6;
 var visca = 0.01;
 var viscb = 0.01;
-var amount = 167;
+var amount = 180;
 
 c.strokeStyle = "#366aa2ff";
 
@@ -70,57 +83,25 @@ function getMousePos(c, evt) {
     return { x: evt.clientX - rect.left, y: evt.clientY - rect.top };
 }
 
-// function callevent() {
-//     if (mouseisdown) {
-//         sign = Math.random() < 0.5 ? -1 : 1;
-//         sign2 = Math.random() < 0.5 ? -1 : 1;
-//         p = Object.create(particle);
-//         p.x = endmouse.x;
-//         p.y = endmouse.y;
-//         p.vx = Math.random() * 1 * sign;
-//         p.vy = Math.random() * 1 * sign2;
-//         p.prevx = 0;
-//         p.prevy = 0;
-//         particlelist.push(p);
-//         var i = setTimeout("callevent()", 1);
-//     } else return;
-// }
-
-// canvas.addEventListener("mousedown", function (evt) {
-//     var oldmousePos = getMousePos(canvas, evt);
-//     startmouse.x = oldmousePos.x;
-//     startmouse.y = oldmousePos.y;
-//     mouseisdown = true;
-//     callevent();
-// }, false);
-
-// canvas.addEventListener("mousemove", function (evt) {
-//     var mousePos = getMousePos(canvas, evt);
-//     endmouse.x = mousePos.x;
-//     endmouse.y = mousePos.y;
-// }, false);
-
-// canvas.addEventListener("mouseup", function (evt) {
-//     var newmousePos = getMousePos(canvas, evt);
-//     endmouse.x = newmousePos.x;
-//     endmouse.y = newmousePos.y;
-//     mouseisdown = false;
-// }, false);
+let avgFPS = 60;       
+const smoothing = 0.05; 
+let lastTime = performance.now();
 
 function requestAnimFrame() {
-    if (!lastCalledTime) {
-        lastCalledTime = Date.now();
-        fps = 0;
-        return;
-    }
-    let delta = (Date.now() - lastCalledTime) / 1000;
-    lastCalledTime = Date.now();
-    fps = 1 / delta;
+    const now = performance.now();
+    const delta = (now - lastTime) / 1000; // seconds
+    lastTime = now;
 
-    // console.log(fps);
+    const fps = 1 / delta;
 
-    if (fps > 65 && particlelist.length < 400) {
-        let p = Object.create(particle);
+    // EMA update
+    avgFPS += (fps - avgFPS) * smoothing;
+
+    console.log(avgFPS.toFixed(2));
+
+    // Use avgFPS for particle spawning
+    if (avgFPS > 65 && particlelist.length < 400) {
+        const p = Object.create(particle);
         p.x = Math.random() * canvas.width / 1.5;
         p.y = Math.random() * (canvas.height / 2);
         p.vx = 0;
@@ -128,10 +109,11 @@ function requestAnimFrame() {
         p.prevx = 0;
         p.prevy = 0;
         particlelist.push(p);
-    } else if (particlelist.length > 150) {
+    } else if (particlelist.length > 180) {
         particlelist.pop();
     }
 }
+
 
 for (let col = 0; col < amount; col++) {
     let p = Object.create(particle);
@@ -192,6 +174,34 @@ function doubledensityrelaxation() {
     }
 }
 
+function render() {
+    c.beginPath();
+    for (const p of particlelist) {
+        c.moveTo(p.x + radius, p.y);
+        c.arc(p.x, p.y, radius, 0, 2 * Math.PI);
+    }
+    c.stroke();
+}
+
+let SIM_BASE = 1080; // vertical simulation units
+let SIM_HEIGHT = SIM_BASE;
+let SIM_WIDTH = window.innerWidth / window.innerHeight * SIM_BASE;
+
+function resizeCanvas() {
+    SIM_WIDTH = window.innerWidth / window.innerHeight * SIM_BASE;
+
+    canvas.width = SIM_WIDTH;
+    canvas.height = SIM_HEIGHT;
+
+    c.setTransform(1, 0, 0, 1, 0, 0);
+
+    c.strokeStyle = "#366aa2ff";
+}
+
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
 const drag = 0.9999;
 
 function animate() {
@@ -224,13 +234,58 @@ function animate() {
         if (p.x <= radius) { p.x = radius; p.vx *= -0.9; }
         if (p.y >= canvas.height - radius) { p.y = canvas.height - radius; p.vy *= -0.9; }
         if (p.y <= radius) { p.y = radius; p.vy *= -0.9; }
-
-        c.beginPath();
-        c.arc(p.x, p.y, radius, 0, 2 * Math.PI);
-        c.stroke();
     }
+
+    render();
 
     window.requestAnimationFrame(animate);
 }
 
 window.requestAnimationFrame(animate);
+
+
+
+
+
+
+
+
+
+
+
+// function callevent() {
+//     if (mouseisdown) {
+//         sign = Math.random() < 0.5 ? -1 : 1;
+//         sign2 = Math.random() < 0.5 ? -1 : 1;
+//         p = Object.create(particle);
+//         p.x = endmouse.x;
+//         p.y = endmouse.y;
+//         p.vx = Math.random() * 1 * sign;
+//         p.vy = Math.random() * 1 * sign2;
+//         p.prevx = 0;
+//         p.prevy = 0;
+//         particlelist.push(p);
+//         var i = setTimeout("callevent()", 1);
+//     } else return;
+// }
+
+// canvas.addEventListener("mousedown", function (evt) {
+//     var oldmousePos = getMousePos(canvas, evt);
+//     startmouse.x = oldmousePos.x;
+//     startmouse.y = oldmousePos.y;
+//     mouseisdown = true;
+//     callevent();
+// }, false);
+
+// canvas.addEventListener("mousemove", function (evt) {
+//     var mousePos = getMousePos(canvas, evt);
+//     endmouse.x = mousePos.x;
+//     endmouse.y = mousePos.y;
+// }, false);
+
+// canvas.addEventListener("mouseup", function (evt) {
+//     var newmousePos = getMousePos(canvas, evt);
+//     endmouse.x = newmousePos.x;
+//     endmouse.y = newmousePos.y;
+//     mouseisdown = false;
+// }, false);
