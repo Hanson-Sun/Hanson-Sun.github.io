@@ -211,8 +211,8 @@ function resizeCanvas() {
     const cssWidth = SIM_WIDTH;
 
     // Internal resolution accounts for DPR
-    canvas.width = cssWidth * dpr;
-    canvas.height = cssHeight * dpr;
+    canvas.width = cssWidth;
+    canvas.height = cssHeight;
 
     // Reset the transform
     c.setTransform(1, 0, 0, 1, 0, 0);
