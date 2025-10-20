@@ -183,17 +183,28 @@ function render() {
     c.stroke();
 }
 
-let SIM_BASE = 500;
+let SIM_BASE = 800;
 let SIM_HEIGHT = SIM_BASE;
-let SIM_WIDTH = window.innerWidth / window.innerHeight * SIM_BASE;
+let SIM_WIDTH = window.visualViewport.width / window.visualViewport.height * SIM_BASE;
 
 function resizeCanvas() {
     const dpr = window.devicePixelRatio || 1;
 
-    console.log(SIM_HEIGHT)
+    let height1 = Math.max(window.visualViewport.height, SIM_BASE);
+    let width1 = window.visualViewport.width / window.visualViewport.height * height1;
 
-    SIM_HEIGHT = Math.max(window.innerHeight, SIM_BASE);
-    SIM_WIDTH = window.innerWidth / window.innerHeight * SIM_HEIGHT;
+    let width2 = Math.max(window.visualViewport.width, SIM_BASE);
+    let height2 = window.visualViewport.height / window.visualViewport.width * width2;
+
+    if (width1 * height1 > width2 * height2) {
+        SIM_WIDTH = width1;
+        SIM_HEIGHT = height1;
+    } else {
+        SIM_WIDTH = width2;
+        SIM_HEIGHT = height2;
+    }
+
+    console.log(SIM_WIDTH, SIM_HEIGHT);
 
     // CSS size of the canvas (fills screen)
     const cssHeight = SIM_HEIGHT;
@@ -213,11 +224,6 @@ function resizeCanvas() {
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
-
-
-
-window.addEventListener("resize", resizeCanvas);
-resizeCanvas();
 
 const drag = 0.9999;
 
