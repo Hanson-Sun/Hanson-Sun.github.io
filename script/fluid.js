@@ -67,7 +67,7 @@ var nearstiffness = 1.1;
 var radius = 6;
 var visca = 0.01;
 var viscb = 0.01;
-var amount = 180;
+var amount = 200;
 
 c.strokeStyle = "#366aa2ff";
 
@@ -97,19 +97,19 @@ function requestAnimFrame() {
     // EMA update
     avgFPS += (fps - avgFPS) * smoothing;
 
-    console.log(avgFPS.toFixed(2));
+    // console.log(avgFPS.toFixed(2));
 
     // Use avgFPS for particle spawning
-    if (avgFPS > 65 && particlelist.length < 400) {
+    if (avgFPS > 65 && particlelist.length < 500) {
         const p = Object.create(particle);
         p.x = Math.random() * canvas.width / 1.5;
-        p.y = Math.random() * (canvas.height / 2);
+        p.y = Math.random() * (canvas.height / 1.5);
         p.vx = 0;
         p.vy = 0;
         p.prevx = 0;
         p.prevy = 0;
         particlelist.push(p);
-    } else if (particlelist.length > 180) {
+    } else if (particlelist.length > 200) {
         particlelist.pop();
     }
 }
@@ -183,20 +183,37 @@ function render() {
     c.stroke();
 }
 
-let SIM_BASE = 1080; // vertical simulation units
+let SIM_BASE = 500;
 let SIM_HEIGHT = SIM_BASE;
 let SIM_WIDTH = window.innerWidth / window.innerHeight * SIM_BASE;
 
 function resizeCanvas() {
-    SIM_WIDTH = window.innerWidth / window.innerHeight * SIM_BASE;
+    const dpr = window.devicePixelRatio || 1;
 
-    canvas.width = SIM_WIDTH;
-    canvas.height = SIM_HEIGHT;
+    console.log(SIM_HEIGHT)
 
+    SIM_HEIGHT = Math.max(window.innerHeight, SIM_BASE);
+    SIM_WIDTH = window.innerWidth / window.innerHeight * SIM_HEIGHT;
+
+    // CSS size of the canvas (fills screen)
+    const cssHeight = SIM_HEIGHT;
+    const cssWidth = SIM_WIDTH;
+
+    // Internal resolution accounts for DPR
+    canvas.width = cssWidth * dpr;
+    canvas.height = cssHeight * dpr;
+
+    // Reset the transform
     c.setTransform(1, 0, 0, 1, 0, 0);
 
+    // Reapply stroke style since context reset clears it
     c.strokeStyle = "#366aa2ff";
 }
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+
 
 
 window.addEventListener("resize", resizeCanvas);
