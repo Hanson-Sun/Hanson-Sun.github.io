@@ -83,7 +83,7 @@ function getMousePos(c, evt) {
     return { x: evt.clientX - rect.left, y: evt.clientY - rect.top };
 }
 
-let avgFPS = 60;       
+var avgFPS = 60;       
 const smoothing = 0.05; 
 let lastTime = performance.now();
 
@@ -98,7 +98,9 @@ function requestAnimFrame() {
     avgFPS += (fps - avgFPS) * smoothing;
 
     // console.log(avgFPS.toFixed(2));
+}
 
+function controlParticles() {
     // Use avgFPS for particle spawning
     if (avgFPS > 60 && particlelist.length < 400) {
         const p = Object.create(particle);
@@ -113,6 +115,8 @@ function requestAnimFrame() {
         particlelist.pop();
     }
 }
+
+setInterval(controlParticles, 200);
 
 
 for (let col = 0; col < amount; col++) {
