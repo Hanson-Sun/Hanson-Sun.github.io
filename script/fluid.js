@@ -100,24 +100,24 @@ function requestAnimFrame() {
     // console.log(avgFPS.toFixed(2));
 }
 
-function controlParticles() {
-    console.log(avgFPS.toFixed(2));
-    // Use avgFPS for particle spawning
-    if (avgFPS > 60 && particlelist.length < 400) {
-        const p = Object.create(particle);
-        p.x = Math.random() * canvas.width / 1.5;
-        p.y = Math.random() * (canvas.height / 1.5);
-        p.vx = 0;
-        p.vy = 0;
-        p.prevx = 0;
-        p.prevy = 0;
-        particlelist.push(p);
-    } else if (particlelist.length > 300) {
-        particlelist.pop();
-    }
-}
+// function controlParticles() {
+//     console.log(avgFPS.toFixed(2));
+//     // Use avgFPS for particle spawning
+//     if (avgFPS > 60 && particlelist.length < 400) {
+//         const p = Object.create(particle);
+//         p.x = Math.random() * canvas.width / 1.5;
+//         p.y = Math.random() * (canvas.height / 1.5);
+//         p.vx = 0;
+//         p.vy = 0;
+//         p.prevx = 0;
+//         p.prevy = 0;
+//         particlelist.push(p);
+//     } else if (particlelist.length > 300) {
+//         particlelist.pop();
+//     }
+// }
 
-setInterval(controlParticles, 200);
+// setInterval(controlParticles, 200);
 
 
 for (let col = 0; col < amount; col++) {
@@ -274,11 +274,63 @@ window.requestAnimationFrame(animate);
 
 
 
+const TARGET_FPS = 60;
+const LOW_FPS = 40;
+const CONTROL_MS = 200;
+const ROUTINE_MS = 10000;
+const COOLDOWN_MS = 3000;
+const MAX_PARTICLES = 400;
+const MIN_PARTICLES = 150;
 
+let routineActive = false;
+let routineEnd = 0;
+let lastTrigger = -Infinity;
 
+const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+const targetParticles = fps => {
+  if (fps >= TARGET_FPS) return MAX_PARTICLES;
+  const t = clamp((fps - 30) / (TARGET_FPS - 30), 0, 1);
+  return Math.round(MIN_PARTICLES + t * (MAX_PARTICLES - MIN_PARTICLES));
+};
 
+function equalize(fps) {
+  const target = targetParticles(fps);
+  if (particlelist.length > target) {
+    const n = Math.min(particlelist.length - target, 12);
+    particlelist.splice(particlelist.length - n, n);
+  } else {
+    const toAdd = Math.min(target - particlelist.length, 12);
+    for (let i = 0; i < toAdd && particlelist.length < MAX_PARTICLES; i++) {
+      const p = Object.create(particle);
+      p.x = Math.random() * (canvas.width / 1.5);
+      p.y = Math.random() * (canvas.height / 1.5);
+      p.vx = p.vy = p.prevx = p.prevy = 0;
+      particlelist.push(p);
+    }
+  }
+}
 
+(function init() {
+  const now = performance.now();
+  routineActive = true;
+  routineEnd = now + ROUTINE_MS;
+  lastTrigger = now;
+})();
 
+setInterval(() => {
+  const now = performance.now();
+  if (routineActive) {
+    equalize(avgFPS);
+    if (now >= routineEnd) routineActive = false;
+    return;
+  }
+  if (avgFPS < LOW_FPS && now - lastTrigger >= COOLDOWN_MS) {
+    routineActive = true;
+    routineEnd = now + ROUTINE_MS;
+    lastTrigger = now;
+  }
+  if (particlelist.length > MAX_PARTICLES) particlelist.splice(MAX_PARTICLES);
+}, CONTROL_MS);
 
 
 // function callevent() {
