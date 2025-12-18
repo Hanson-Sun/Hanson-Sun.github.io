@@ -100,7 +100,7 @@ function requestAnimFrame() {
     // console.log(avgFPS.toFixed(2));
 
     // Use avgFPS for particle spawning
-    if (avgFPS > 65 && particlelist.length < 500) {
+    if (avgFPS > 60 && particlelist.length < 400) {
         const p = Object.create(particle);
         p.x = Math.random() * canvas.width / 1.5;
         p.y = Math.random() * (canvas.height / 1.5);
@@ -109,7 +109,7 @@ function requestAnimFrame() {
         p.prevx = 0;
         p.prevy = 0;
         particlelist.push(p);
-    } else if (particlelist.length > 200) {
+    } else if (particlelist.length > 300) {
         particlelist.pop();
     }
 }
