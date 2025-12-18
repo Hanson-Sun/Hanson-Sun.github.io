@@ -101,6 +101,7 @@ function requestAnimFrame() {
 }
 
 function controlParticles() {
+    console.log(avgFPS.toFixed(2));
     // Use avgFPS for particle spawning
     if (avgFPS > 60 && particlelist.length < 400) {
         const p = Object.create(particle);
