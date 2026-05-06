@@ -15,6 +15,7 @@
             --bg: #fafafa;
             --text: #1a1a1a;
             --link: #007aff;
+            --p-text: #585858;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -22,6 +23,7 @@
                 --bg: #0d0d0d;
                 --text: #f2f2f2;
                 --link: #4da3ff;
+                --p-text: #949494;
             }
         }
 
@@ -76,7 +78,7 @@
         p {
             font-size: 0.95rem;
             margin: 0.3rem 0 0.3rem;
-            color: #666;
+            color: var(--p-text);
             line-height: 1.6;
         }
 

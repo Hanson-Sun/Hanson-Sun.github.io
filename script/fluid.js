@@ -1,9 +1,8 @@
-var ctx = document.getElementById("test");
-var c = ctx.getContext("2d");
-ctx.width = document.body.clientWidth;
-ctx.height = document.body.clientHeight;
+const canvas = document.getElementById('test');
+const c = canvas.getContext('2d');
 
-var g = [0, 1];
+let g = [0, 0.03];
+
 function tryAccelerometer() {
     if (!('Accelerometer' in window)) {
         startRandomGravity();
@@ -16,7 +15,6 @@ function tryAccelerometer() {
         acl = new Accelerometer({ frequency: 60 });
         const timeout = setTimeout(() => {
             if (!didRead) {
-                console.warn("No accelerometer data — using random gravity.");
                 acl.stop();
                 startRandomGravity();
             }
@@ -29,7 +27,6 @@ function tryAccelerometer() {
         });
         acl.start();
     } catch (e) {
-        console.warn("Accelerometer not available:", e);
         startRandomGravity();
     }
 }
@@ -37,51 +34,65 @@ function tryAccelerometer() {
 tryAccelerometer();
 
 function startRandomGravity() {
-    let target = [0, 0.3];
-    const scale = 0.5;
+    let target = [0, 0.03];
+    const scale = 0.05;
     setInterval(() => {
         target = [(Math.random() - 0.5) * scale, (Math.random() - 0.5) * scale];
-    }, 5000);
+    }, 10000);
     setInterval(() => {
         g[0] += (target[0] - g[0]) * 0.01;
         g[1] += (target[1] - g[1]) * 0.01;
     }, 30);
 }
 
-var canvas = document.getElementById('test'),
-    c = canvas.getContext('2d');
+const timestep = 0.7;
+const nearlimit = 65;
+const h = 70;
+const restdensity = 4;
+const stiffness = 0.6;
+const nearstiffness = 1.1;
+const radius = 6;
+const amount = 200;
 
-canvas.width = window.innerWidth;
-canvas.height = 0.98 * window.innerHeight;
+const nearlimitSq = nearlimit * nearlimit;
+const invH = 1 / h;
+const tsSq = timestep * timestep;
+const invCell = 1 / nearlimit;
+const PI2 = 2 * Math.PI;
 
-var particlelist = [];
+const MAX_PARTICLES = 888;
+const MIN_PARTICLES = 128;
+const TARGET_FPS = 60;
+const LOW_FPS = 55;
+const CONTROL_MS = 200;
+const ROUTINE_MS = 10000;
+const COOLDOWN_MS = 3000;
 
-var timestep = 0.7;
-var nearlimit = 65;
-var h = 70;
-var restdensity = 4;
-var stiffness = 0.6;
-var nearstiffness = 1.1;
-var radius = 6;
-var visca = 0.01;
-var viscb = 0.01;
-var amount = 200;
-
-c.strokeStyle = "#366aa2ff";
-
-var particle = { x: null, y: null, vx: null, vy: null, prevx: null, prevy: null };
-var startmouse = { x: 0, y: 0 };
-endmouse = { x: 0, y: 0 };
-mouseisdown = false;
-hold = false;
-var currentcirc;
-
-function getMousePos(c, evt) {
-    var rect = c.getBoundingClientRect();
-    return { x: evt.clientX - rect.left, y: evt.clientY - rect.top };
+class Particle {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.vx = 0;
+        this.vy = 0;
+        this.prevx = x;
+        this.prevy = y;
+    }
 }
 
-var avgFPS = 60;
+const particlelist = [];
+let next = new Int32Array(MAX_PARTICLES);
+let head = new Int32Array(0);
+let gridCols = 0;
+let gridRows = 0;
+
+function setStrokeStyle() {
+    const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    c.strokeStyle = isDark ? "#5592d3" : "#68b1ff";
+}
+
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", setStrokeStyle);
+
+let avgFPS = 60;
 const smoothing = 0.05;
 let lastTime = performance.now();
 
@@ -89,113 +100,131 @@ function requestAnimFrame() {
     const now = performance.now();
     const delta = (now - lastTime) / 1000;
     lastTime = now;
-    const fps = 1 / delta;
-    avgFPS += (fps - avgFPS) * smoothing;
+    if (delta > 0) {
+        avgFPS += ((1 / delta) - avgFPS) * smoothing;
+    }
 }
 
 for (let col = 0; col < amount; col++) {
-    let p = Object.create(particle);
-    p.x = Math.random() * canvas.width / 1.5;
-    p.y = Math.random() * (canvas.height / 2);
-    p.vx = 0;
-    p.vy = 0;
-    p.prevx = 0;
-    p.prevy = 0;
-    particlelist.push(p);
+    particlelist.push(new Particle(Math.random() * window.innerWidth / 1.5, Math.random() * (window.innerHeight / 2)));
 }
 
-requestAnimFrame();
-
 function doubledensityrelaxation() {
-    for (let p of particlelist) {
-        var density = 0;
-        var neardensity = 0;
-        for (let p2 of particlelist) {
-            if (p2 != p) {
-                var d = (p.x - p2.x) ** 2 + (p.y - p2.y) ** 2;
-                var dsqrt = Math.sqrt(d);
-                if ((d < nearlimit ** 2) && (d > 1)) {
-                    var q = dsqrt / h;
-                    if (q < 1) {
-                        density += (1 - q) ** 2;
-                        neardensity += (1 - q) ** 3;
+    const len = particlelist.length;
+    head.fill(-1);
+
+    for (let i = 0; i < len; i++) {
+        const p = particlelist[i];
+        const cx = Math.max(0, Math.min(gridCols - 1, (p.x * invCell) | 0));
+        const cy = Math.max(0, Math.min(gridRows - 1, (p.y * invCell) | 0));
+        const cell = cx + cy * gridCols;
+        next[i] = head[cell];
+        head[cell] = i;
+    }
+
+    for (let i = 0; i < len; i++) {
+        const p = particlelist[i];
+        let density = 0;
+        let neardensity = 0;
+
+        const cx = Math.max(0, Math.min(gridCols - 1, (p.x * invCell) | 0));
+        const cy = Math.max(0, Math.min(gridRows - 1, (p.y * invCell) | 0));
+        
+        const minX = Math.max(0, cx - 1);
+        const maxX = Math.min(gridCols - 1, cx + 1);
+        const minY = Math.max(0, cy - 1);
+        const maxY = Math.min(gridRows - 1, cy + 1);
+
+        for (let y = minY; y <= maxY; y++) {
+            const row = y * gridCols;
+            for (let x = minX; x <= maxX; x++) {
+                let j = head[x + row];
+                while (j !== -1) {
+                    if (i !== j) {
+                        const p2 = particlelist[j];
+                        const dx = p.x - p2.x;
+                        const dy = p.y - p2.y;
+                        const d = dx * dx + dy * dy;
+                        if (d > 1 && d < nearlimitSq) {
+                            const q1 = 1 - (Math.sqrt(d) * invH);
+                            if (q1 > 0) {
+                                density += q1 * q1;
+                                neardensity += q1 * q1 * q1;
+                            }
+                        }
                     }
+                    j = next[j];
                 }
             }
         }
 
-        var Density = stiffness * (density - restdensity);
-        var DensityNear = nearstiffness * neardensity;
-        var dx = 0, dy = 0;
+        const pressure = stiffness * (density - restdensity);
+        const nearPressure = nearstiffness * neardensity;
+        let p_dx = 0;
+        let p_dy = 0;
 
-        for (let p2 of particlelist) {
-            if (p2 != p) {
-                d = (p.x - p2.x) ** 2 + (p.y - p2.y) ** 2;
-                var dsqrt = Math.sqrt(d);
-                if ((d < nearlimit ** 2) && (d > 1)) {
-                    var q = dsqrt / h;
-                    if (q < 1) {
-                        var D = timestep * timestep * (Density * (1 - q) + DensityNear * (1 - q) ** 2);
-                        var diffx = p2.x - p.x;
-                        var diffy = p2.y - p.y;
-                        p2.x += D * diffx / 2 / dsqrt;
-                        p2.y += D * diffy / 2 / dsqrt;
-                        dx -= D * diffx / 2 / dsqrt;
-                        dy -= D * diffy / 2 / dsqrt;
+        for (let y = minY; y <= maxY; y++) {
+            const row = y * gridCols;
+            for (let x = minX; x <= maxX; x++) {
+                let j = head[x + row];
+                while (j !== -1) {
+                    if (i !== j) {
+                        const p2 = particlelist[j];
+                        const dx = p2.x - p.x;
+                        const dy = p2.y - p.y;
+                        const d = dx * dx + dy * dy;
+                        if (d > 1 && d < nearlimitSq) {
+                            const dsqrt = Math.sqrt(d);
+                            const q1 = 1 - (dsqrt * invH);
+                            if (q1 > 0) {
+                                const D = tsSq * (pressure * q1 + nearPressure * q1 * q1);
+                                const dispX = (D * dx) / (2 * dsqrt);
+                                const dispY = (D * dy) / (2 * dsqrt);
+                                p2.x += dispX;
+                                p2.y += dispY;
+                                p_dx -= dispX;
+                                p_dy -= dispY;
+                            }
+                        }
                     }
+                    j = next[j];
                 }
             }
         }
-
-        p.x += dx;
-        p.y += dy;
+        p.x += p_dx;
+        p.y += p_dy;
     }
 }
 
 function render() {
     c.beginPath();
-    for (const p of particlelist) {
+    const len = particlelist.length;
+    for (let i = 0; i < len; i++) {
+        const p = particlelist[i];
         c.moveTo(p.x + radius, p.y);
-        c.arc(p.x, p.y, radius, 0, 2 * Math.PI);
+        c.arc(p.x, p.y, radius, 0, PI2);
     }
     c.stroke();
 }
 
-let SIM_BASE = 800;
-let SIM_HEIGHT = SIM_BASE;
-let SIM_WIDTH = window.visualViewport.width / window.visualViewport.height * SIM_BASE;
-
+let SIM_WIDTH, SIM_HEIGHT;
 function resizeCanvas() {
-    const dpr = window.devicePixelRatio || 1;
-
-    let height1 = Math.max(window.visualViewport.height, SIM_BASE);
-    let width1 = window.visualViewport.width / window.visualViewport.height * height1;
-
-    let width2 = Math.max(window.visualViewport.width, SIM_BASE);
-    let height2 = window.visualViewport.height / window.visualViewport.width * width2;
-
-    if (width1 * height1 > width2 * height2) {
-        SIM_WIDTH = width1;
-        SIM_HEIGHT = height1;
-    } else {
-        SIM_WIDTH = width2;
-        SIM_HEIGHT = height2;
-    }
-
+    SIM_WIDTH = window.innerWidth;
+    SIM_HEIGHT = window.innerHeight * 0.98;
     canvas.width = SIM_WIDTH;
     canvas.height = SIM_HEIGHT;
-
-    c.setTransform(1, 0, 0, 1, 0, 0);
-    c.strokeStyle = "#366aa2ff";
+    setStrokeStyle();
+    gridCols = Math.ceil(SIM_WIDTH * invCell);
+    gridRows = Math.ceil(SIM_HEIGHT * invCell);
+    head = new Int32Array(gridCols * gridRows);
 }
 
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
 const drag = 0.9999;
-
-// Mouse gravity state
 let mouseGravity = false;
+let mouseAttract = false;
 let mousePos = { x: 0, y: 0 };
 
 if (window.matchMedia("(pointer: fine)").matches) {
@@ -203,117 +232,76 @@ if (window.matchMedia("(pointer: fine)").matches) {
         const rect = canvas.getBoundingClientRect();
         mousePos.x = evt.clientX - rect.left;
         mousePos.y = evt.clientY - rect.top;
+        mouseGravity = true;
     });
 
-    document.addEventListener("mousedown", () => { mouseGravity = true; });
-    document.addEventListener("mouseup",   () => { mouseGravity = false; startRandomGravity(); });
+    document.addEventListener("click", () => { mouseAttract = !mouseAttract; });
 }
+
 
 function animate() {
     requestAnimFrame();
     c.clearRect(0, 0, canvas.width, canvas.height);
 
-    for (p of particlelist) {
-        if (mouseGravity) {
-            const dx = mousePos.x - p.x;
-            const dy = mousePos.y - p.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist > 30) {
-                const strength = Math.min(1512 / (dist * dist), 2.0);
-                p.vx += strength * dx / dist;
-                p.vy += strength * dy / dist;
-            }
-        } else {
-            p.vx += g[0] * timestep;
-            p.vy += g[1] * timestep;
+    const len = particlelist.length;
+    const mX = mousePos.x;
+    const mY = mousePos.y;
+
+    for (let i = 0; i < len; i++) {
+        const p = particlelist[i];
+        const dx = mousePos.x - p.x, dy = mousePos.y - p.y;
+        const dSq = dx * dx + dy * dy;
+        
+        if (dSq > 10) {
+            const d = Math.sqrt(dSq);
+            const f = (mouseAttract ? 1 : -1) * Math.min(1024 / dSq, 2.0);
+            p.vx += dx / d * f * timestep;
+            p.vy += dy / d * f * timestep;
         }
 
-        p.vy = Math.min(p.vy, 45);
-        p.vx = Math.min(p.vx, 45);
-    }
+        p.vx += g[0] * timestep; p.vy += g[1] * timestep;
+        p.vx = Math.max(-45, Math.min(p.vx, 45));
+        p.vy = Math.max(-45, Math.min(p.vy, 45));
 
-    for (p of particlelist) {
-        p.prevx = p.x;
-        p.prevy = p.y;
-        p.x += p.vx * timestep;
-        p.y += p.vy * timestep;
+        p.prevx = p.x; p.prevy = p.y;
+        p.x += p.vx * timestep; p.y += p.vy * timestep;
     }
 
     doubledensityrelaxation();
 
-    for (p of particlelist) {
+    for (let i = 0; i < len; i++) {
+        const p = particlelist[i];
         p.vx = (p.x - p.prevx) / timestep;
         p.vy = (p.y - p.prevy) / timestep;
         p.x = p.prevx + p.vx * timestep * drag;
         p.y = p.prevy + p.vy * timestep * drag;
 
-        if (p.x >= SIM_WIDTH - radius) { p.x = SIM_WIDTH - radius; p.vx *= -0.9; }
-        if (p.x <= radius) { p.x = radius; p.vx *= -0.9; }
-        if (p.y >= SIM_HEIGHT - radius) { p.y = SIM_HEIGHT - radius; p.vy *= -0.9; }
-        if (p.y <= radius) { p.y = radius; p.vy *= -0.9; }
+        if (p.x >= SIM_WIDTH - radius) { p.x = SIM_WIDTH - radius; p.vx *= -0.5; }
+        else if (p.x <= radius) { p.x = radius; p.vx *= -0.5; }
+        if (p.y >= SIM_HEIGHT - radius) { p.y = SIM_HEIGHT - radius; p.vy *= -0.5; }
+        else if (p.y <= radius) { p.y = radius; p.vy *= -0.5; }
     }
 
     render();
-
     window.requestAnimationFrame(animate);
 }
 
 window.requestAnimationFrame(animate);
 
-const TARGET_FPS = 60;
-const LOW_FPS = 40;
-const CONTROL_MS = 200;
-const ROUTINE_MS = 10000;
-const COOLDOWN_MS = 3000;
-const MAX_PARTICLES = 400;
-const MIN_PARTICLES = 150;
-
-let routineActive = false;
-let routineEnd = 0;
-let lastTrigger = -Infinity;
-
-const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
-const targetParticles = fps => {
-    if (fps >= TARGET_FPS) return MAX_PARTICLES;
-    const t = clamp((fps - 30) / (TARGET_FPS - 30), 0, 1);
-    return Math.round(MIN_PARTICLES + t * (MAX_PARTICLES - MIN_PARTICLES));
-};
-
-function equalize(fps) {
-    const target = targetParticles(fps);
+setInterval(() => {
+    const target = targetParticles(avgFPS);
     if (particlelist.length > target) {
-        const n = Math.min(particlelist.length - target, 12);
-        particlelist.splice(particlelist.length - n, n);
-    } else {
-        const toAdd = Math.min(target - particlelist.length, 12);
-        for (let i = 0; i < toAdd && particlelist.length < MAX_PARTICLES; i++) {
-            const p = Object.create(particle);
-            p.x = Math.random() * (canvas.width / 1.5);
-            p.y = Math.random() * (canvas.height / 1.5);
-            p.vx = p.vy = p.prevx = p.prevy = 0;
-            particlelist.push(p);
+        particlelist.splice(target);
+    } else if (particlelist.length < target) {
+        const toAdd = Math.min(target - particlelist.length, 10);
+        for (let i = 0; i < toAdd; i++) {
+            particlelist.push(new Particle(Math.random() * SIM_WIDTH, Math.random() * (SIM_HEIGHT / 2)));
         }
     }
-}
-
-(function init() {
-    const now = performance.now();
-    routineActive = true;
-    routineEnd = now + ROUTINE_MS;
-    lastTrigger = now;
-})();
-
-setInterval(() => {
-    const now = performance.now();
-    if (routineActive) {
-        equalize(avgFPS);
-        if (now >= routineEnd) routineActive = false;
-        return;
-    }
-    if (avgFPS < LOW_FPS && now - lastTrigger >= COOLDOWN_MS) {
-        routineActive = true;
-        routineEnd = now + ROUTINE_MS;
-        lastTrigger = now;
-    }
-    if (particlelist.length > MAX_PARTICLES) particlelist.splice(MAX_PARTICLES);
 }, CONTROL_MS);
+
+function targetParticles(fps) {
+    if (fps >= TARGET_FPS) return MAX_PARTICLES;
+    const t = Math.max(0, Math.min(1, (fps - 30) / (TARGET_FPS - 30)));
+    return Math.round(MIN_PARTICLES + t * (MAX_PARTICLES - MIN_PARTICLES));
+}
