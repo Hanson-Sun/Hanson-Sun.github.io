@@ -3,7 +3,6 @@
 User-agent: *
 
 Allow: /html/
-Allow: /pdfs/
 Allow: *.pdf
 Allow: *.html
 
@@ -11,7 +10,5 @@ Disallow: /lib/
 Disallow: /script/
 Disallow: /assets/
 Disallow: /style/
-Disallow: /html/test.html
-Disallow: /html/ascii-hanson.html
 
 Sitemap: https://hanson-sun.github.io/sitemap.xml
