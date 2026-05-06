@@ -1,4 +1,4 @@
-### Hi there 👋
+### Something about the internet
 
 
 https://hanson-sun.github.io/ 
