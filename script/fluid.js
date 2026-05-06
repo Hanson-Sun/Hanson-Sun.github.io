@@ -20,7 +20,7 @@ function tryAccelerometer() {
                 acl.stop();
                 startRandomGravity();
             }
-        }, 2000); // wait 2s for any readings
+        }, 2000);
 
         acl.addEventListener('reading', () => {
             didRead = true;
@@ -36,8 +36,6 @@ function tryAccelerometer() {
 
 tryAccelerometer();
 
-
-// Smoothly switch random gravity direction every few seconds
 function startRandomGravity() {
     let target = [0, 0.3];
     const scale = 0.5;
@@ -83,42 +81,17 @@ function getMousePos(c, evt) {
     return { x: evt.clientX - rect.left, y: evt.clientY - rect.top };
 }
 
-var avgFPS = 60;       
-const smoothing = 0.05; 
+var avgFPS = 60;
+const smoothing = 0.05;
 let lastTime = performance.now();
 
 function requestAnimFrame() {
     const now = performance.now();
-    const delta = (now - lastTime) / 1000; // seconds
+    const delta = (now - lastTime) / 1000;
     lastTime = now;
-
     const fps = 1 / delta;
-
-    // EMA update
     avgFPS += (fps - avgFPS) * smoothing;
-
-    // console.log(avgFPS.toFixed(2));
 }
-
-// function controlParticles() {
-//     console.log(avgFPS.toFixed(2));
-//     // Use avgFPS for particle spawning
-//     if (avgFPS > 60 && particlelist.length < 400) {
-//         const p = Object.create(particle);
-//         p.x = Math.random() * canvas.width / 1.5;
-//         p.y = Math.random() * (canvas.height / 1.5);
-//         p.vx = 0;
-//         p.vy = 0;
-//         p.prevx = 0;
-//         p.prevy = 0;
-//         particlelist.push(p);
-//     } else if (particlelist.length > 300) {
-//         particlelist.pop();
-//     }
-// }
-
-// setInterval(controlParticles, 200);
-
 
 for (let col = 0; col < amount; col++) {
     let p = Object.create(particle);
@@ -209,35 +182,51 @@ function resizeCanvas() {
         SIM_HEIGHT = height2;
     }
 
-    console.log(SIM_WIDTH, SIM_HEIGHT);
+    canvas.width = SIM_WIDTH;
+    canvas.height = SIM_HEIGHT;
 
-    // CSS size of the canvas (fills screen)
-    const cssHeight = SIM_HEIGHT;
-    const cssWidth = SIM_WIDTH;
-
-    // Internal resolution accounts for DPR
-    canvas.width = cssWidth;
-    canvas.height = cssHeight;
-
-    // Reset the transform
     c.setTransform(1, 0, 0, 1, 0, 0);
-
-    // Reapply stroke style since context reset clears it
     c.strokeStyle = "#366aa2ff";
 }
 
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
-
 const drag = 0.9999;
+
+// Mouse gravity state
+let mouseGravity = false;
+let mousePos = { x: 0, y: 0 };
+
+if (window.matchMedia("(pointer: fine)").matches) {
+    document.addEventListener("mousemove", evt => {
+        const rect = canvas.getBoundingClientRect();
+        mousePos.x = evt.clientX - rect.left;
+        mousePos.y = evt.clientY - rect.top;
+    });
+
+    document.addEventListener("mousedown", () => { mouseGravity = true; });
+    document.addEventListener("mouseup",   () => { mouseGravity = false; startRandomGravity(); });
+}
 
 function animate() {
     requestAnimFrame();
     c.clearRect(0, 0, canvas.width, canvas.height);
+
     for (p of particlelist) {
-        p.vy += g[1] * timestep;
-        p.vx += g[0] * timestep
+        if (mouseGravity) {
+            const dx = mousePos.x - p.x;
+            const dy = mousePos.y - p.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist > 30) {
+                const strength = Math.min(1512 / (dist * dist), 2.0);
+                p.vx += strength * dx / dist;
+                p.vy += strength * dy / dist;
+            }
+        } else {
+            p.vx += g[0] * timestep;
+            p.vy += g[1] * timestep;
+        }
 
         p.vy = Math.min(p.vy, 45);
         p.vx = Math.min(p.vx, 45);
@@ -271,9 +260,6 @@ function animate() {
 
 window.requestAnimationFrame(animate);
 
-
-
-
 const TARGET_FPS = 60;
 const LOW_FPS = 40;
 const CONTROL_MS = 200;
@@ -288,84 +274,46 @@ let lastTrigger = -Infinity;
 
 const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
 const targetParticles = fps => {
-  if (fps >= TARGET_FPS) return MAX_PARTICLES;
-  const t = clamp((fps - 30) / (TARGET_FPS - 30), 0, 1);
-  return Math.round(MIN_PARTICLES + t * (MAX_PARTICLES - MIN_PARTICLES));
+    if (fps >= TARGET_FPS) return MAX_PARTICLES;
+    const t = clamp((fps - 30) / (TARGET_FPS - 30), 0, 1);
+    return Math.round(MIN_PARTICLES + t * (MAX_PARTICLES - MIN_PARTICLES));
 };
 
 function equalize(fps) {
-  const target = targetParticles(fps);
-  if (particlelist.length > target) {
-    const n = Math.min(particlelist.length - target, 12);
-    particlelist.splice(particlelist.length - n, n);
-  } else {
-    const toAdd = Math.min(target - particlelist.length, 12);
-    for (let i = 0; i < toAdd && particlelist.length < MAX_PARTICLES; i++) {
-      const p = Object.create(particle);
-      p.x = Math.random() * (canvas.width / 1.5);
-      p.y = Math.random() * (canvas.height / 1.5);
-      p.vx = p.vy = p.prevx = p.prevy = 0;
-      particlelist.push(p);
+    const target = targetParticles(fps);
+    if (particlelist.length > target) {
+        const n = Math.min(particlelist.length - target, 12);
+        particlelist.splice(particlelist.length - n, n);
+    } else {
+        const toAdd = Math.min(target - particlelist.length, 12);
+        for (let i = 0; i < toAdd && particlelist.length < MAX_PARTICLES; i++) {
+            const p = Object.create(particle);
+            p.x = Math.random() * (canvas.width / 1.5);
+            p.y = Math.random() * (canvas.height / 1.5);
+            p.vx = p.vy = p.prevx = p.prevy = 0;
+            particlelist.push(p);
+        }
     }
-  }
 }
 
 (function init() {
-  const now = performance.now();
-  routineActive = true;
-  routineEnd = now + ROUTINE_MS;
-  lastTrigger = now;
-})();
-
-setInterval(() => {
-  const now = performance.now();
-  if (routineActive) {
-    equalize(avgFPS);
-    if (now >= routineEnd) routineActive = false;
-    return;
-  }
-  if (avgFPS < LOW_FPS && now - lastTrigger >= COOLDOWN_MS) {
+    const now = performance.now();
     routineActive = true;
     routineEnd = now + ROUTINE_MS;
     lastTrigger = now;
-  }
-  if (particlelist.length > MAX_PARTICLES) particlelist.splice(MAX_PARTICLES);
+})();
+
+setInterval(() => {
+    const now = performance.now();
+    if (routineActive) {
+        equalize(avgFPS);
+        if (now >= routineEnd) routineActive = false;
+        return;
+    }
+    if (avgFPS < LOW_FPS && now - lastTrigger >= COOLDOWN_MS) {
+        routineActive = true;
+        routineEnd = now + ROUTINE_MS;
+        lastTrigger = now;
+    }
+    if (particlelist.length > MAX_PARTICLES) particlelist.splice(MAX_PARTICLES);
 }, CONTROL_MS);
-
-
-// function callevent() {
-//     if (mouseisdown) {
-//         sign = Math.random() < 0.5 ? -1 : 1;
-//         sign2 = Math.random() < 0.5 ? -1 : 1;
-//         p = Object.create(particle);
-//         p.x = endmouse.x;
-//         p.y = endmouse.y;
-//         p.vx = Math.random() * 1 * sign;
-//         p.vy = Math.random() * 1 * sign2;
-//         p.prevx = 0;
-//         p.prevy = 0;
-//         particlelist.push(p);
-//         var i = setTimeout("callevent()", 1);
-//     } else return;
-// }
-
-// canvas.addEventListener("mousedown", function (evt) {
-//     var oldmousePos = getMousePos(canvas, evt);
-//     startmouse.x = oldmousePos.x;
-//     startmouse.y = oldmousePos.y;
-//     mouseisdown = true;
-//     callevent();
-// }, false);
-
-// canvas.addEventListener("mousemove", function (evt) {
-//     var mousePos = getMousePos(canvas, evt);
-//     endmouse.x = mousePos.x;
-//     endmouse.y = mousePos.y;
-// }, false);
-
-// canvas.addEventListener("mouseup", function (evt) {
-//     var newmousePos = getMousePos(canvas, evt);
-//     endmouse.x = newmousePos.x;
-//     endmouse.y = newmousePos.y;
-//     mouseisdown = false;
-// }, false);
